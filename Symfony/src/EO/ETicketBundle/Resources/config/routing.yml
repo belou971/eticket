@@ -1,0 +1,3 @@
+eoe_ticket_homepage:
+    path:     /
+    defaults: { _controller: EOETicketBundle:Default:index }
