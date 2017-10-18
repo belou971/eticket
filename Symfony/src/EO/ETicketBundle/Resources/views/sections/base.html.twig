@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    {% block head %}
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- Bootstrap Core CSS -->
+        {% stylesheets 'bundles/eoeticket/css/bootstrap/css/bootstrap.min.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+
+        <!-- Theme CSS -->
+        {% stylesheets 'bundles/eoeticket/css/style.css' %}
+             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    {% endblock %}
+</head>
+
+<body>
+
+    {%  include 'EOETicketBundle:sections:header.html.twig' %}
+{#
+    <!-- Content Body -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Main Page Contain -->
+            <div class="main-contain col-lg-offset-1 col-lg-7 col-md-9 col-sm-8">
+                {% block content %}{% endblock %}
+            </div>
+
+            {% include 'sections/sidebar.html.twig' %}
+        </div>
+    </div>
+#}
+    {% include 'EOETicketBundle:sections:footer.html.twig' %}
+
+    <!-- jQuery -->
+    {% javascripts 'bundles/eoeticket/jquery/jquery.min.js' %}
+         <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <!-- Bootstrap Core JavaScript -->
+    {% javascripts 'bundles/eoeticket/css/bootstrap/js/bootstrap.min.js' %}
+         <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <!-- Main menu sticky JavaScript -->
+    <!--
+    <script src="/js/my-sticky.js"></script>
+    -->
+
+    {% block js %}{% endblock %}
+
+</body>
+
+</html>

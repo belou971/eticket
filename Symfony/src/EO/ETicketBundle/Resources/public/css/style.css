@@ -1,0 +1,37 @@
+
+.site-header h1 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-size: 30px;
+    font-weight: 900;
+    text-shadow: 2px 2px #000000;
+}
+
+.site-header h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    font-size: 15px;
+    color: #fff;
+}
+
+.navbar-default {
+    background-color: #663300!important;
+    border-color: #e7e7e7;
+}
+
+a.nav-link,
+footer a:hover {
+    color: #fff !important;
+    text-decoration: none;
+}
+
+a.nav-link:hover,
+footer a:hover {
+    color: #f9bf22!important;
+}
+
+footer {
+    background-color: #dff0d8;
+}
