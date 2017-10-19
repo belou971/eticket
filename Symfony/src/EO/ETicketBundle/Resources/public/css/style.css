@@ -1,4 +1,7 @@
 
+/**********************************************************************************************************************/
+/*                                                Header style                                                        */
+/**********************************************************************************************************************/
 .site-header h1 {
     margin-top: 10px;
     margin-bottom: 5px;
@@ -32,6 +35,76 @@ footer a:hover {
     color: #f9bf22!important;
 }
 
+/**********************************************************************************************************************/
+/*                                                Main Content style                                                        */
+/**********************************************************************************************************************/
+
+/*    1. Purchase flow style     */
+/*********************************/
+
+.purchase-flow {
+    border: solid 1px #C3A678;
+    /*border-left: solid 1px #C3A678;*/
+    padding: 1.5em;
+    margin-top: 76px;
+    margin-bottom: 2px;
+}
+
+/*        1.1 Purchase Header style     */
+/****************************************/
+
+ol.step-names {
+    counter-reset:li; /* Initiate a counter */
+    margin-left:0; /* Remove the default left margin */
+    padding-left:0; /* Remove the default left padding */
+    font-size: 17px;
+}
+
+ol.step-names > li {
+    position:relative; /* Create a positioning context */
+    margin:0 0 6px 1.5em; /* Give each list item a left margin to make room for the numbers */
+    padding:14px 76px; /* Add some spacing around the content */
+    list-style:none; /* Disable the normal item numbering */
+    border:2px solid #FDED72;
+    background:#999966;
+}
+
+ol.step-names > li.active {
+    color: #ffffff;
+}
+
+ol.step-names > li.active:before {
+    color:#ffffff;
+    background: #98BE10;
+}
+
+ol.step-names > li:before {
+    content:counter(li); /* Use the counter as content */
+    counter-increment:li; /* Increment the counter by 1 */
+    /* Position and style the number */
+    position:absolute;
+    top:-2px;
+    left:-2em;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+    /*width:2em;*/
+    /* Some space between the number and the content in browsers that support
+       generated content but not positioning it (Camino 2 is one example) */
+    margin-right:4px;
+    padding:14px;
+    border:2px solid #FDED72;
+    color:#999999;
+    background: #333300;
+    font-weight:bold;
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    text-align:center;
+}
+
+
+/**********************************************************************************************************************/
+/*                                                Footer style                                                        */
+/**********************************************************************************************************************/
 footer {
     background-color: #dff0d8;
 }
