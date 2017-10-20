@@ -3,6 +3,9 @@
 namespace EO\ETicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use EO\ETicketBundle\Entity\Booking;
+use EO\ETicketBundle\Enum\RateEnum;
+use EO\ETicketBundle\Type\RateType;
 
 /**
  * Ticket
@@ -52,26 +55,19 @@ class Ticket
     private $priceHT;
 
     /**
-     * @var RateEnum
+     * @var \EO\ETicketBundle\Enum\RateEnum
      *
      * @ORM\Column(type="RateType")
      */
     private $rateType;
 
     /**
-     * @var \EO\ETicketBundle\Entity\Booking
+     * @var Booking
      *
      * @ORM\ManyToOne(targetEntity="EO\ETicketBundle\Entity\Booking", inversedBy="tickets")
      * @ORM\JoinColumn(nullable=false)
      */
     private $booking;
-
-    /**
-     * @var \EO\ETicketBundle\Entity\AvailableDate
-     *
-     * @ORM\ManyToOne(targetEntity="\EO\ETicketBundle\Entity\AvailableDate")
-     */
-    private $dtVisitor;
 
 
     /**
@@ -132,29 +128,7 @@ class Ticket
         return $this->visitorSurname;
     }
 
-    /**
-     * Set visitorDtBirth
-     *
-     * @param \DateTime $visitorDtBirth
-     *
-     * @return Ticket
-     */
-    public function setVisitorDtBirth($visitorDtBirth)
-    {
-        $this->visitorDtBirth = $visitorDtBirth;
 
-        return $this;
-    }
-
-    /**
-     * Get visitorDtBirth
-     *
-     * @return \DateTime
-     */
-    public function getVisitorDtBirth()
-    {
-        return $this->visitorDtBirth;
-    }
 
     /**
      * Set priceHT
@@ -207,11 +181,11 @@ class Ticket
     /**
      * Set booking
      *
-     * @param \EO\ETicketBundle\Entity\Booking $booking
+     * @param Booking $booking
      *
      * @return Ticket
      */
-    public function setBooking(\EO\ETicketBundle\Entity\Booking $booking)
+    public function setBooking(Booking $booking)
     {
         $this->booking = $booking;
 
@@ -221,7 +195,7 @@ class Ticket
     /**
      * Get booking
      *
-     * @return \EO\ETicketBundle\Entity\Booking
+     * @return Booking
      */
     public function getBooking()
     {
@@ -229,35 +203,37 @@ class Ticket
     }
 
     /**
-     * Set dtVisitor
+     * Set visitorDtBirth
      *
-     * @param \EO\ETicketBundle\Entity\AvailableDate $dtVisitor
+     * @param \DateTime $visitorDtBirth
      *
      * @return Ticket
      */
-    public function setDtVisitor(\EO\ETicketBundle\Entity\AvailableDate $dtVisitor = null)
+    public function setVisitorDtBirth($visitorDtBirth)
     {
-        $this->dtVisitor = $dtVisitor;
+        $this->visitorDtBirth = $visitorDtBirth;
 
         return $this;
     }
 
     /**
-     * Get dtVisitor
+     * Get visitorDtBirth
      *
-     * @return \EO\ETicketBundle\Entity\AvailableDate
+     * @return \DateTime
      */
-    public function getDtVisitor()
+    public function getVisitorDtBirth()
     {
-        return $this->dtVisitor;
+        return $this->visitorDtBirth;
     }
+
+
 
     /**
      * @ORM\PostPersist
      */
     public function decreasePlace()
     {
-        $visitDate = $this->getDtVisitor();
+        $visitDate = $this->booking->getDtVisitor();
 
         if(!is_null($visitDate)) {
             $visitDate->decreasePlaceAvailable();

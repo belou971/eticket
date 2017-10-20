@@ -2882,73 +2882,83 @@
         <mandatory>1</mandatory>
         <data-type>enum(&apos;half&apos;, &apos;full&apos;)</data-type>
       </column>
-      <key id="686" parent="65" name="PRIMARY">
+      <column id="686" parent="65" name="dt_visitor_id">
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="687" parent="65" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="687" parent="66" name="id">
+      <foreign-key id="688" parent="65" name="FK_A6F83AFDE9B5E338">
+        <columns>dt_visitor_id</columns>
+        <ref-key>eo_available_date.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="689" parent="66" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="688" parent="66" name="name">
+      <column id="690" parent="66" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="689" parent="66" name="value">
+      <column id="691" parent="66" name="value">
         <mandatory>1</mandatory>
         <data-type>double</data-type>
       </column>
-      <key id="690" parent="66" name="PRIMARY">
+      <key id="692" parent="66" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="691" parent="67" name="id">
+      <column id="693" parent="67" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="692" parent="67" name="visitorName">
+      <column id="694" parent="67" name="visitorName">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="693" parent="67" name="visitorSurname">
+      <column id="695" parent="67" name="visitorSurname">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="694" parent="67" name="visitorDtBirth">
+      <column id="696" parent="67" name="visitorDtBirth">
         <mandatory>1</mandatory>
         <data-type>date</data-type>
       </column>
-      <column id="695" parent="67" name="rate_type">
+      <column id="697" parent="67" name="rate_type">
         <comment>(DC2Type:RateType)</comment>
         <mandatory>1</mandatory>
         <data-type>enum(&apos;normal&apos;, &apos;bébé&apos;, &apos;enfant&apos;, &apos;sénior&apos;, &apos;preferred rate&apos;, &apos;t.v.a&apos;)</data-type>
       </column>
-      <column id="696" parent="67" name="price_ht_id">
-        <data-type>int(11)</data-type>
-      </column>
-      <column id="697" parent="67" name="booking_id">
+      <column id="698" parent="67" name="price_ht_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="698" parent="67" name="UNIQ_AC9F70C39F4E818">
+      <column id="699" parent="67" name="booking_id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="700" parent="67" name="UNIQ_AC9F70C39F4E818">
         <columns>price_ht_id</columns>
         <unique>1</unique>
       </index>
-      <key id="699" parent="67" name="PRIMARY">
+      <key id="701" parent="67" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="700" parent="67" name="UNIQ_AC9F70C39F4E818">
+      <key id="702" parent="67" name="UNIQ_AC9F70C39F4E818">
         <columns>price_ht_id</columns>
         <underlying-index>UNIQ_AC9F70C39F4E818</underlying-index>
       </key>
-      <foreign-key id="701" parent="67" name="FK_AC9F70C3301C60">
+      <foreign-key id="703" parent="67" name="FK_AC9F70C3301C60">
         <columns>booking_id</columns>
         <ref-key>eo_booking.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="702" parent="67" name="FK_AC9F70C39F4E818">
+      <foreign-key id="704" parent="67" name="FK_AC9F70C39F4E818">
         <columns>price_ht_id</columns>
         <ref-key>eo_rate.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
