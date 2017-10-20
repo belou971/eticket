@@ -4,6 +4,7 @@ namespace EO\ETicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use EO\ETicketBundle\Enum\BookingEnum;
+use EO\ETicketBundle\Type\BookingType;
 
 /**
  * Booking
@@ -49,6 +50,14 @@ class Booking
      * @ORM\Column(name="dtBirth", type="date")
      */
     private $dtBirth;
+
+
+    /**
+     * @var \EO\ETicketBundle\Entity\AvailableDate
+     *
+     * @ORM\ManyToOne(targetEntity="\EO\ETicketBundle\Entity\AvailableDate")
+     */
+    private $dtVisitor;
 
     /**
      * @var \DateTime
@@ -185,6 +194,30 @@ class Booking
     public function getDtBirth()
     {
         return $this->dtBirth;
+    }
+
+    /**
+     * Set dtVisitor
+     *
+     * @param \EO\ETicketBundle\Entity\AvailableDate $dtVisitor
+     *
+     * @return Ticket
+     */
+    public function setDtVisitor(\EO\ETicketBundle\Entity\AvailableDate $dtVisitor = null)
+    {
+        $this->dtVisitor = $dtVisitor;
+
+        return $this;
+    }
+
+    /**
+     * Get dtVisitor
+     *
+     * @return \EO\ETicketBundle\Entity\AvailableDate
+     */
+    public function getDtVisitor()
+    {
+        return $this->dtVisitor;
     }
 
     /**

@@ -1,3 +1,22 @@
 {% extends "EOETicketBundle:sections:base.html.twig" %}
 
 {% block title %}Billetterie en ligne{% endblock %}
+
+{% block form %}
+    {{ form(dateform) }}
+    {# <div class="date-picker"></div> #}
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(function () {
+            $('.date-picker').datetimepicker({
+                locale: 'fr',
+                format: 'dd-MM-YYYY',
+                inline: true,
+                minDate: new Date(),
+                daysOfWeekDisabled: [0, 6]
+            });
+        });
+    </script>
+{% endblock %}

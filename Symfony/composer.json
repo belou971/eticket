@@ -24,17 +24,19 @@
         "php": ">=5.5.9",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
+        "eonasdan/bootstrap-datetimepicker": "^4.17",
         "incenteev/composer-parameter-handler": "^2.0",
+        "leafo/scssphp": "~0.7.1",
+        "patchwork/jsqueeze": "~2.0.5",
+        "robloach/component-installer": "^0.2.3",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^3.0.2",
+        "symfony/assetic-bundle": "^2.8.2",
         "symfony/monolog-bundle": "^3.1.0",
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.3.*",
-        "twig/twig": "^1.0||^2.0",
-        "symfony/assetic-bundle": "^2.8.2",
-        "leafo/scssphp": "~0.7.1",
-        "patchwork/jsqueeze": "~2.0.5"
+        "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
@@ -57,7 +59,8 @@
         ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "component-dir": "src/EO/ETicketBundle/Resources/public/components"
     },
     "extra": {
         "symfony-app-dir": "app",
