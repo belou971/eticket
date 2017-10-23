@@ -16,15 +16,6 @@
         <link href="{{ asset('bundles/eoeticket/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('bundles/eoeticket/components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 
-        <!--
-        {% stylesheets
-        'bundles/eoeticket/bootstrap/css/bootstrap.min.css'
-        'bundles/eoeticket/components/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'
-        %}
-            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-        {% endstylesheets %}
-        -->
-
         <!-- Theme CSS -->
         {% stylesheets 'bundles/eoeticket/css/style.css' %}
              <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
@@ -42,7 +33,7 @@
 
 <body>
 
-    {%  include 'EOETicketBundle:sections:header.html.twig' %}
+    {#  include 'EOETicketBundle:sections:header.html.twig' #}
 
     <!-- Content Body -->
     <div class="container-fluid">
@@ -80,15 +71,9 @@
     <script src="{{ asset('bundles/eoeticket/components/moment/min/locales.min.js') }}"></script>
 
     <!-- jQuery -->
-    {% javascripts 'bundles/eoeticket/components/jquery/jquery.min.js' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    {% javascripts
-    'bundles/eoeticket/bootstrap/js/bootstrap.min.js'
-    'bundles/eoeticket/components/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}
-         <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script src="{{ asset('bundles/eoeticket/components/jquery/jquery.min.js' ) }}"></script>
+    <script src="{{ asset('bundles/eoeticket/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/eoeticket/components/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
 
     <!-- Main menu sticky JavaScript -->
     <!--

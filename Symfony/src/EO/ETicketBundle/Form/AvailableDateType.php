@@ -3,8 +3,7 @@
 namespace EO\ETicketBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-//use Symfony\Component\Form\Extension\Core\Type\DateType;
-//use EO\ETicketBundle\Form\DatePickerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +15,9 @@ class AvailableDateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date', DatePickerType::class, array());
+            ->add('date', DatePickerType::class, array())
+
+            ->add('save', SubmitType::class);
     }
     
     /**
@@ -36,6 +37,4 @@ class AvailableDateType extends AbstractType
     {
         return 'eo_eticketbundle_availabledate';
     }
-
-
 }

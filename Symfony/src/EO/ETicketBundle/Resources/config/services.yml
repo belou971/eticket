@@ -1,8 +1,8 @@
 services:
-    form.type.datePicker:
+    form.type.datepicker:
       class: EO\ETicketBundle\Form\DatePickerType
       tags:
-        - { name: form.type, alias: datePicker }
+        - { name: form.type, alias: datepicker }
 
 
 #    eoe_ticket.example:

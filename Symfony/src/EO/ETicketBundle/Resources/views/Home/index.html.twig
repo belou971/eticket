@@ -3,20 +3,28 @@
 {% block title %}Billetterie en ligne{% endblock %}
 
 {% block form %}
+
+    {% form_theme dateform 'EOETicketBundle:Form:datePickerForm.php.twig' %}
+
     {{ form(dateform) }}
-    {# <div class="date-picker"></div> #}
+
 {% endblock %}
 
 {% block js %}
     <script>
-        $(function () {
-            $('.date-picker').datetimepicker({
-                locale: 'fr',
-                format: 'dd-MM-YYYY',
-                inline: true,
-                minDate: new Date(),
-                daysOfWeekDisabled: [0, 6]
-            });
+        var $dpicker = $('input.date-picker');
+
+        $dpicker.datetimepicker({
+            locale: 'fr',
+            format: 'L',
+            inline: true,
+            minDate: new Date(),
+            daysOfWeekDisabled: [0, 6]
         });
+
+        $dpicker.on('dp.change', function(e){
+           $('input.date-picker').val(e.date.format('L'));
+        });
+
     </script>
 {% endblock %}
