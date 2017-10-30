@@ -1,3 +1,7 @@
 eoe_ticket_homepage:
     path:     /
     defaults: { _controller: EOETicketBundle:Home:index }
+
+eoe_ticket_available:
+    path: /availableDate
+    defaults: { _controller: EOETicketBundle:Home:date }

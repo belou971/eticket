@@ -62,7 +62,7 @@ class AvailableDate
      *
      * @return AvailableDate
      */
-    public function setDate($date)
+    public function setDate(\DateTime $date)
     {
         $this->date = $date;
 
@@ -107,6 +107,12 @@ class AvailableDate
     public function decreasePlaceAvailable()
     {
         $this->placeAvailable--;
+    }
+
+
+    public function formatDateToLetter() {
+        setlocale(LC_TIME, 'fr_FR.utf8');
+        return strftime("%A %e %B %Y", $this->date->getTimestamp());
     }
 }
 

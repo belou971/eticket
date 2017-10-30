@@ -4,27 +4,10 @@
 
 {% block form %}
 
-    {% form_theme dateform 'EOETicketBundle:Form:datePickerForm.php.twig' %}
-
-    {{ form(dateform) }}
+    {% include 'EOETicketBundle:Form:AvailableDateForm.php.twig' %}
 
 {% endblock %}
 
 {% block js %}
-    <script>
-        var $dpicker = $('input.date-picker');
-
-        $dpicker.datetimepicker({
-            locale: 'fr',
-            format: 'L',
-            inline: true,
-            minDate: new Date(),
-            daysOfWeekDisabled: [0, 6]
-        });
-
-        $dpicker.on('dp.change', function(e){
-           $('input.date-picker').val(e.date.format('L'));
-        });
-
-    </script>
+    <script src="{{ asset('bundles/eoeticket/jquery/eticket.js' ) }}"></script>
 {% endblock %}
