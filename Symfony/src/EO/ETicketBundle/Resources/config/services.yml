@@ -1,9 +1,13 @@
 services:
     form.type.datepicker:
-      class: EO\ETicketBundle\Form\DatePickerType
-      tags:
-        - { name: form.type, alias: datepicker }
+        class: EO\ETicketBundle\Form\DatePickerType
+        tags:
+          - { name: form.type, alias: datepicker }
 
+    form.type.bookingchoice:
+        class: EO\ETicketBundle\Form\BookingChoiceType
+        tags:
+          - {name: form.type, alias: bookingchoice }
 
 #    eoe_ticket.example:
 #        class: EO\ETicketBundle\Example

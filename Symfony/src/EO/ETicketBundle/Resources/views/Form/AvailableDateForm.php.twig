@@ -1,14 +1,14 @@
-{{ form_start(dateform) }}
+{{ form_start(form) }}
 
-{% form_theme dateform 'EOETicketBundle:Form:datePickerForm.php.twig' %}
+{% form_theme form 'EOETicketBundle:Form:datePickerForm.php.twig' %}
 
 <div class="step-booking-date" style="display: block">
 
-    {{ form_label(dateform.date, "Choisissez une date de réservation", {'label_attr':{'class': 'label-control'}}) }}
+    {{ form_label(form.date, "Choisissez une date de réservation", {'label_attr':{'class': 'label-control'}}) }}
 
-    {{ form_errors(dateform.date) }}
+    {{ form_errors(form.date) }}
 
-    {{ form_widget(dateform.date) }}
+    {{ form_widget(form.date) }}
 
     <div class="row">
         <div class="dateinfo purchase-flow-border col-lg-12 text-center" style="display: none">
@@ -19,8 +19,8 @@
 
 </div>
 
-{{ form_widget(dateform.save) }}
+{# form_widget(form.save) #}
 
-{{ form_rest(dateform) }}
+{{ form_rest(form) }}
 
-{{ form_end(dateform) }}
+{{ form_end(form) }}

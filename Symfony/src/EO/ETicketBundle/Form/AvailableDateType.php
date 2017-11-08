@@ -29,13 +29,10 @@ class AvailableDateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('date', DatePickerType::class, array())
-
-            ->add('save', SubmitType::class);
+        $builder->add('date', DatePickerType::class, array());
 
         //$builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
-       // $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'));
+        //$builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'));
         //$builder->addEventListener(FormEvents::POST_SUBMIT, array($this, 'onPostSubmit'));
     }
     
@@ -47,6 +44,7 @@ class AvailableDateType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'EO\ETicketBundle\Entity\AvailableDate'
         ));
+
     }
 
     /**
@@ -57,7 +55,7 @@ class AvailableDateType extends AbstractType
         return 'eo_eticketbundle_availabledate';
     }
 
-    public function onPreSetData(FormEvent $event)
+    public function onPreSubmit(FormEvent $event)
     {
         /*$availableDateRepo = $this->entityMgr->getRepository("EOETicketBundle:AvailableDate");
 

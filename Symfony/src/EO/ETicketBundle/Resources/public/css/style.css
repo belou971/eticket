@@ -104,11 +104,25 @@ ol.step-names > li:before {
 
 /*        1.2 Booking date form style   */
 /*          1.2.1  Date info container  */
+/*          1.2.2  Booking type button  */
 /****************************************/
 .dateinfo {
     background-color: #fcfda5;
     margin: 1.0em 0;
     font-size: large;
+}
+
+.booking-choice-btn {
+    padding: 14px 22px !important;
+    margin: 15px 0;
+    color: #878376 !important;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 0 !important;
+}
+
+.booking-choice-btn.active {
+    color: #ffffff !important;
 }
 
 

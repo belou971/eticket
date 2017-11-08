@@ -31,6 +31,7 @@ abstract class EnumType extends Type
         return "enum(".implode(", ", $lovalues).")";
     }
 
+
     /**
      * Gets the name of this type.
      *
@@ -50,13 +51,6 @@ abstract class EnumType extends Type
         }
 
         return $value;
-        /*try {
-            $booking_type = new BookingEnum($value);
-            return $booking_type;
-        } catch (\UnexpectedValueException $ex) {
-            echo "La valeur '$value' n'est pas un type de réservation reconnu.
-             Les valeurs attendues sont [" . BookingEnum::HALF . "," . BookingEnum::FULL . "]" . PHP_EOL;
-        }*/
     }
 
     public function requiresSQLCommentHint(AbstractPlatform $platform)

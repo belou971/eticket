@@ -3,9 +3,10 @@
 namespace EO\ETicketBundle\Controller;
 
 use EO\ETicketBundle\Entity\AvailableDate;
+use EO\ETicketBundle\Entity\Booking;
 use EO\ETicketBundle\Enum\MessageEnum;
 use EO\ETicketBundle\Form\AvailableDateType;
-use EO\ETicketBundle\Type\Message;
+use EO\ETicketBundle\Form\BookingType;
 use EO\ETicketBundle\Type\Messages;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,16 +18,18 @@ class HomeController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $bookingDate = new AvailableDate();
-
+        //$booking = new AvailableDate();
         //Generate AvailableDate form
-        $dateForm = $this->createForm(AvailableDateType::class, $bookingDate);
+        //$form = $this->createForm(AvailableDateType::class, $booking);
+
+        $booking = new Booking();
+        $form = $this->createForm(BookingType::class, $booking);
 
         if($request->isMethod('POST') )
         {
-            if($dateForm->handleRequest($request)->isSubmitted()) {
+            if($form->handleRequest($request)->isSubmitted()) {
 
-                $data =  $dateForm->getData();
+                $data =  $form->getData();
                 if(is_null($data)){
                     echo "Handle form FAILED";
                 }
@@ -42,8 +45,7 @@ class HomeController extends Controller
                 }
             }
         }
-        return $this->render('EOETicketBundle:Home:index.html.twig', array(
-            'dateform' => $dateForm->createView()));
+        return $this->render('EOETicketBundle:Home:index.html.twig', array('form' => $form->createView()));
     }
 
     public function dateAction(Request $request)

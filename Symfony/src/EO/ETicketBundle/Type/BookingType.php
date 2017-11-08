@@ -9,7 +9,7 @@
 
 namespace EO\ETicketBundle\Type;
 
-use EO\ETicketBundle\Type\EnumType;
+//use EO\ETicketBundle\Type\EnumType;
 use EO\ETicketBundle\Enum\BookingEnum;
 
 
@@ -17,4 +17,11 @@ class BookingType extends EnumType
 {
     protected $nameType = 'BookingType';
     protected $values = array(BookingEnum::HALF, BookingEnum::FULL);
+
+    public static function getValues()
+    {
+        $map_values = array('Journée' => BookingEnum::FULL, 'Demi-journée' => BookingEnum::HALF);
+
+        return $map_values;
+    }
 }
