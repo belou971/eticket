@@ -4,8 +4,7 @@ namespace EO\ETicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use EO\ETicketBundle\Entity\Booking;
-use EO\ETicketBundle\Enum\RateEnum;
-use EO\ETicketBundle\Type\RateType;
+
 
 /**
  * Ticket
@@ -53,13 +52,6 @@ class Ticket
      * @ORM\JoinColumn(nullable=false)
      */
     private $priceHT;
-
-    /**
-     * @var \EO\ETicketBundle\Enum\RateEnum
-     *
-     * @ORM\Column(type="RateType")
-     */
-    private $rateType;
 
     /**
      * @var Booking
@@ -152,30 +144,6 @@ class Ticket
     public function getPriceHT()
     {
         return $this->priceHT;
-    }
-
-    /**
-     * Set rateType
-     *
-     * @param RateType $rateType
-     *
-     * @return Ticket
-     */
-    public function setRateType($rateType)
-    {
-        $this->rateType = $rateType;
-
-        return $this;
-    }
-
-    /**
-     * Get rateType
-     *
-     * @return RateType
-     */
-    public function getRateType()
-    {
-        return $this->rateType;
     }
 
     /**

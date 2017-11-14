@@ -4,9 +4,11 @@ namespace EO\ETicketBundle\Controller;
 
 use EO\ETicketBundle\Entity\AvailableDate;
 use EO\ETicketBundle\Entity\Booking;
+use EO\ETicketBundle\Entity\Ticket;
 use EO\ETicketBundle\Enum\MessageEnum;
 use EO\ETicketBundle\Form\AvailableDateType;
 use EO\ETicketBundle\Form\BookingType;
+use EO\ETicketBundle\Form\TicketType;
 use EO\ETicketBundle\Type\Messages;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,6 +26,9 @@ class HomeController extends Controller
 
         $booking = new Booking();
         $form = $this->createForm(BookingType::class, $booking);
+
+        //$booking = new Ticket();
+        //$form = $this->createForm(TicketType::class, $booking);
 
         if($request->isMethod('POST') )
         {
@@ -84,5 +89,12 @@ class HomeController extends Controller
         }
 
         return new Response('http request method is wrong');
+    }
+
+    public function addAction()
+    {
+        $ticket_template = $this->renderView('EOETicketBundle:Form:ticketView.html.twig');
+
+        return new JsonResponse(array('ticket' => "$ticket_template"));
     }
 }

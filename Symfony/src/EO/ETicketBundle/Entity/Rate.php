@@ -3,6 +3,8 @@
 namespace EO\ETicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use EO\ETicketBundle\Enum\RateEnum;
+use EO\ETicketBundle\Type\RateType;
 
 /**
  * Rate
@@ -22,11 +24,11 @@ class Rate
     private $id;
 
     /**
-     * @var string
+     * @var \EO\ETicketBundle\Enum\RateEnum
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(type="RateType")
      */
-    private $name;
+    private $rateType;
 
     /**
      * @var float
@@ -47,27 +49,27 @@ class Rate
     }
 
     /**
-     * Set name
+     * Set rateType
      *
-     * @param string $name
+     * @param RateType $rateType
      *
-     * @return Rate
+     * @return Ticket
      */
-    public function setName($name)
+    public function setRateType($rateType)
     {
-        $this->name = $name;
+        $this->rateType = $rateType;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get rateType
      *
-     * @return string
+     * @return RateType
      */
-    public function getName()
+    public function getRateType()
     {
-        return $this->name;
+        return $this->rateType;
     }
 
     /**
@@ -94,4 +96,3 @@ class Rate
         return $this->value;
     }
 }
-

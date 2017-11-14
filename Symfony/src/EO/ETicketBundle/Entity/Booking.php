@@ -2,6 +2,7 @@
 
 namespace EO\ETicketBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use EO\ETicketBundle\Enum\BookingEnum;
 use EO\ETicketBundle\Type\BookingType;
@@ -296,7 +297,7 @@ class Booking
      */
     public function __construct()
     {
-        $this->tickets = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tickets = new ArrayCollection();
         $this->dtCreation = new \DateTime();
     }
 

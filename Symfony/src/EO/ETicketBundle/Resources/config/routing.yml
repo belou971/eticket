@@ -5,3 +5,7 @@ eoe_ticket_homepage:
 eoe_ticket_available:
     path: /availableDate
     defaults: { _controller: EOETicketBundle:Home:date }
+
+eoe_ticket_addticket:
+    path: /add
+    defaults: { _controller: EOETicketBundle:Home:add }

@@ -112,6 +112,8 @@ ol.step-names > li:before {
     font-size: large;
 }
 
+/*        1.3 Booking type button style */
+/****************************************/
 .booking-choice-btn {
     padding: 14px 22px !important;
     margin: 15px 0;
@@ -123,6 +125,174 @@ ol.step-names > li:before {
 
 .booking-choice-btn.active {
     color: #ffffff !important;
+}
+
+/*    2. Step buttons of the purchase flow style */
+/*************************************************/
+.step-buttons-container {
+    border-top: 1px solid #c3a678;
+}
+
+.nextBtn,
+.previousBtn {
+    margin-top: 15px;
+}
+
+.btn-style {
+    color: #333300;
+    background-color: #999966;
+    border-color: #fded72;
+}
+
+.btn-style:hover{
+    color: #ffffff;
+    background-color: #98BE10;
+}
+
+.btn-style:focus{
+    border-color: #fded72!important;
+}
+
+.addBtn {
+    margin-bottom: 1em;
+}
+
+button {
+    outline: none!important;
+}
+
+/*    3. Ticket container style                  */
+/*************************************************/
+.ticket-container {
+    margin-bottom: 1em;
+    background-color: #ffffff;
+    border: 1px solid #c3a678;
+}
+
+.ticket-form-header {
+    /*color: #333300;
+    background-color: #ccdaaa;*/
+    margin: 3px 0;
+}
+
+
+.delete-btn{
+   /* border-radius: 5px!important;*/
+    /*border: 1px solid snow!important;*/
+    outline: none!important;
+}
+
+.price :focus {
+    border-color: transparent!important;
+    box-shadow: none!important;
+    outline: none!important;
+}
+
+.theme-color-normal {
+    color: #333300;
+    background-color: #ccdaaa;
+}
+
+.rate-header{
+    border-bottom: 8px double #ffffff;
+}
+
+.rate-label-color-normal {
+    color: #333300;
+}
+
+.visitor-form {
+    border-right: 1px solid #c3a678;
+    border-top: 1px solid #c3a678;
+    background-color: #ffffff;
+    padding-top: 15px;
+}
+
+.rate {
+    border-top: 1px solid #c3a678;
+}
+
+.row-color {
+    background-color: #ccdaaa;;
+}
+
+/* SLIDE THREE */
+
+input[type=checkbox] {
+    visibility: hidden;
+}
+
+.slideThree {
+    width: 80px;
+    height: 26px;
+    background: #ccdaaa;
+    /*margin: 20px auto;*/
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+   position: relative;
+
+    -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    -moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
+}
+
+.slideThree:after {
+    content: 'NON';
+    font: 12px/26px Arial, sans-serif;
+    color: #ff414c;
+    position: absolute;
+    right: 10px;
+    z-index: 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 0px rgba(255,255,255,.15);
+}
+
+.slideThree:before {
+    content: 'OUI';
+    font: 12px/26px Arial, sans-serif;
+    color: #00bf00;
+    position: absolute;
+    left: 10px;
+    z-index: 0;
+    font-weight: bold;
+}
+
+.slideThree label {
+    display: block;
+    width: 34px;
+    height: 20px;
+
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    transition: all .4s ease;
+    cursor: pointer;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: 1;
+
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.3);
+    background: #fcfff4;
+
+    background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
+}
+
+.slideThree input[type=checkbox]:checked + label {
+    left: 43px;
 }
 
 
