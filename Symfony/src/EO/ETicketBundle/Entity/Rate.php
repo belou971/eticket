@@ -31,6 +31,13 @@ class Rate
     private $rateType;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="ageMax", type="integer", nullable=true)
+     */
+    private $ageMax;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="value", type="float")
@@ -94,5 +101,29 @@ class Rate
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Set ageMax
+     *
+     * @param integer $ageMax
+     *
+     * @return Rate
+     */
+    public function setAgeMax($ageMax)
+    {
+        $this->ageMax = $ageMax;
+
+        return $this;
+    }
+
+    /**
+     * Get ageMax
+     *
+     * @return integer
+     */
+    public function getAgeMax()
+    {
+        return $this->ageMax;
     }
 }

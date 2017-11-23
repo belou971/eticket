@@ -18,6 +18,17 @@ class RateEnum
     const BABY           = "bébé";
     const CHILDREN       = "enfant";
     const SENIOR         = "sénior";
-    const PREFERRED_RATE = "preferred rate";
+    const PREFERRED_RATE = "réduit";
     const TVA            = "t.v.a";
+
+    static public function getValues() {
+        $values[] = RateEnum::BABY;
+        $values[] = RateEnum::CHILDREN;
+        $values[] = RateEnum::NORMAL;
+        $values[] = RateEnum::SENIOR;
+        $values[] = RateEnum::PREFERRED_RATE;
+        $values[] = RateEnum::TVA;
+
+        return $values;
+    }
 }

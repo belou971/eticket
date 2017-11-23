@@ -20,4 +20,9 @@ class RateType extends EnumType
                               RateEnum::SENIOR,
                               RateEnum::PREFERRED_RATE,
                               RateEnum::TVA);
+
+    public function getValues()
+    {
+        return $this->values;
+    }
 }

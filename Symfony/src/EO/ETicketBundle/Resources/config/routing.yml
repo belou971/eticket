@@ -9,3 +9,7 @@ eoe_ticket_available:
 eoe_ticket_addticket:
     path: /add
     defaults: { _controller: EOETicketBundle:Home:add }
+
+eoe_ticket_loadrates:
+    path: /load
+    defaults: { _controller: EOETicketBundle:Home:load }

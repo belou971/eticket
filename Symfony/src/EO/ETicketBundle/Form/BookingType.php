@@ -29,7 +29,9 @@ class BookingType extends AbstractType
             ->add('bookingType', BookingChoiceType::class)
             ->add('name', TextType::class)
             ->add('surname', TextType::class)
-            ->add('dtBirth', BirthdayType::class, array('format' => 'dd-MM-yyyy'))
+            ->add('dtBirth', BirthdayType::class, array(
+                'format' => 'dd-MM-yyyy',
+                'placeholder' => array('day'=>'Jour', 'month'=>'Mois', 'year'=>'Année')))
             ->add('email', EmailType::class)
             ->add('tickets', CollectionType::class, array(
                 'label' => false,
@@ -37,8 +39,8 @@ class BookingType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => false
-            ));
-            //->add('save', SubmitType::class);
+            ))
+            ->add('save', SubmitType::class, array('label' => 'Continuer'));
     }
     
     /**

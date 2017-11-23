@@ -5,6 +5,62 @@
 /*****************************************************************************/
 /*                     Functions definitions                                 */
 /*****************************************************************************/
+function initialize($step1, $step2)
+{
+    /* ******************* Step1 Handling ********************* */
+    showStep($step1);
+    hideStep($step2);
+
+    var $step1BtnDiv = $step1.find('.step-buttons-container');
+    if($step1BtnDiv !== null && $step1BtnDiv.length === 1) {
+        hideStep($step1BtnDiv);
+    }
+
+    var $coordonnees = $step1.find('.coordonnees');
+    var $allInputText = $coordonnees.find('input[type=text], input[type=email], select');
+    $allInputText.on('change', function() {
+            var $continue = true;
+            $allInputText.each(function() {
+                if($(this).is('input')) {
+                    $continue = $continue && (!isEmpty($(this)));
+                }
+
+                if($(this).is('select')) {
+                    $continue = $continue && isSelected($(this));
+                }
+            });
+
+            if($continue === true) {
+                showStep($step1BtnDiv);
+            }
+            else {
+                hideStep($step1BtnDiv);
+            }
+        }
+    );
+
+    /* ******************* Step2 Handling ********************* */
+    var $step1Btn = $step1BtnDiv.find('button');
+    $step1Btn.on('click', function() {
+            var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
+            if($ticketsDiv.children().length === 0) {
+                ticketFormBuilder();
+            }
+            showStep($step2);
+            hideStep($step1);
+        }
+    );
+
+    var $step2BtnDiv = $step2.find('.step-buttons-container');
+    var $step2PrevBtn = $step2BtnDiv.find('.previousBtn');
+    $step2PrevBtn.on('click', function(){
+            showStep($step1);
+            hideStep($step2);
+        }
+    );
+}
+
+
 function getNumberPlaceForDate($inputDate)
 {
     var $data = {date: $inputDate};
@@ -34,20 +90,53 @@ function set_active_class($element) {
     $element.find('.btn').toggleClass('btn-default');
 }
 
+function bindInputs($ticket) {
+    var $allBDayInputs = $ticket.find('input[type=checkbox], select');
+
+    $allBDayInputs.on('change', function($event) {
+        var $element = $event.target;
+        var $ticket_id = $element.closest('.ticket-container').id;
+        updatePrice($ticket_id);
+    }) ;
+}
+
+function getIndex() {
+    var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
+
+    if($ticketsDiv.children().length == 0)
+        return 0;
+
+    var $lastTicket = $ticketsDiv.children().last();
+    var $lastTicketId = $lastTicket.attr('id');
+    return Number($lastTicketId.substr(33)) + 1;
+}
+
 //Build a ticket form
 function ticketFormBuilder() {
     $.post("add")
         .done( function(data) {
 
                 var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
-                var $index = $ticketsDiv.children().length;
+                var $index = getIndex();
                 var $ticketForm = replaceBy(data.ticket,'__name__', $index);
                 $ticketsDiv.append($ticketForm);
+
                 if($index === 0) {
                     var $firstTicket = $ticketsDiv.children().first();
                     autoFillTicketForm($firstTicket);
+                    updatePrice($firstTicket.attr('id'));
                 }
 
+                var $newTicket = $ticketsDiv.find(':last-child');
+                handlingBtns($newTicket);
+                bindInputs($newTicket);
+
+                if($ticketsDiv.children().length > 0) {
+                    var $step2 = $('.step-tickets');
+                    var $step2BtnDiv = $step2.find('.step-buttons-container');
+                    var $step2NextBtn = $step2BtnDiv.find('.nextBtn');
+                    showStep($step2NextBtn);
+                }
             }
         );
 }
@@ -68,8 +157,39 @@ function autoFillTicketForm($ticket) {
                 var $addressSurname = $address.find('.surname');
                 copyTo($addressSurname, $(this));
             }
+
+            if($(this).hasClass('day')) {
+                var $addressDay = $address.find('select[name*=day]');
+                copyTo($addressDay, $(this));
+            }
+
+            if($(this).hasClass('month')) {
+                var $addressMonth = $address.find('select[name*=month]');
+                copyTo($addressMonth, $(this));
+            }
+
+            if($(this).hasClass('year')) {
+                var $addressYear = $address.find('select[name*=year]');
+                copyTo($addressYear, $(this));
+            }
         }
     );
+}
+
+
+function handlingBtns($ticket) {
+    var $delBtn = $ticket.find('.delete-btn');
+    $delBtn.bind('click', function() {
+        $(this).unbind('click');
+        $(this).parent().closest('.ticket-container').remove();
+        if($('div#eo_eticketbundle_booking_tickets').children().length <= 0) {
+            var $step2 = $('.step-tickets');
+            var $step2BtnDiv = $step2.find('.step-buttons-container');
+            var $step2NextBtn = $step2BtnDiv.find('.nextBtn');
+            hideStep($step2NextBtn);
+        }
+    });
+
 }
 
 function copyTo($from, $to) {
@@ -93,9 +213,108 @@ function isEmpty($tag) {
    return ($tag.val().length === 0);
 }
 
-function readyStep() {
-
+function isSelected($tag) {
+    var $val = $('option:selected', $tag).attr('value');
+    return ( (Number($val) !== Number.NaN) && (Number($val)>0) );
 }
+
+function initRates() {
+    $.get("load")
+        .done( function(data) {
+            $.each(JSON.parse(data), function($idx, $obj) {
+                $rates.push({"id": $obj.id, "type": $obj.type, "ageMax":$obj.ageMax, "value": $obj.value});
+            });
+        });
+}
+
+function isReducingRate(item) {
+    return (item.type === "réduit");
+}
+
+function isNormalRate(item) {
+    return (item.type === "normal");
+}
+
+function setRateHeader($ticket, $type, $value ) {
+    var $ticket_title = $ticket.find('.ticket-title ');
+    if($ticket_title.length === 1) {
+        var $ticket_header = "Ticket " + $type;
+        $ticket_title.text($ticket_header);
+    }
+
+    var $rate_header = $ticket.find('.rate-type');
+    if($rate_header.length === 1) {
+        var $newTitle = "Tarif "+ $type;
+        $rate_header.text($newTitle);
+
+        var $inputRateType = $ticket.find('input[id*=rateType]');
+        if ($inputRateType.length === 1) {
+            $inputRateType.val($type);
+        }
+
+        var $inputRateValue = $ticket.find('input[id*=value]');
+        if($inputRateValue.length === 1) {
+            if($value !== '') {
+                $inputRateValue.val($value.toFixed(2));
+            }
+            else {
+                $inputRateValue.val('');
+            }
+        }
+    }
+}
+
+function getAge($ticket) {
+    var $year = $ticket.find('select[name*=year]');
+    var $month = $ticket.find('select[name*=month]');
+    var $day = $ticket.find('select[name*=day]');
+
+    if(($year.val() === '') || ($month.val() === '') || ($day.val() === '')) {
+        return null;
+    }
+
+    var $birthday = new Date($year.val(), $month.val(), $day.val());
+    var $now = Date.now();
+
+    return (($now - $birthday)/31536000000).toFixed(0);
+}
+
+function findRate($age){
+    return $rates.find(function($rate){
+        if( ($rate.type !== "t.v.a") && ($rate.type !== "réduit") ) {
+            return ( ($rate.ageMax !== null) && ($age <= $rate.ageMax) ) ;
+        }
+    });
+}
+
+function updatePrice($ticket_id) {
+    //var $ticket_id = $element.closest('.ticket-container').attr('id');
+    var $ticket = $('#'+$ticket_id);
+    var $reducing_checkbox = $ticket.find('input[type=checkbox]');
+
+    //if reduce button is checked
+    if($reducing_checkbox.is(':checked')) {
+        var $reducing_rate_info = $rates.find(isReducingRate);
+        setRateHeader($ticket, $reducing_rate_info.type, $reducing_rate_info.value);
+    }
+    else {
+        //compute the visitor's age
+        var $visitorAge = getAge($ticket);
+
+        if($visitorAge !== null) {
+            //update rate section and the title of the ticket
+            var $rate_info = findRate($visitorAge);
+            if ($rate_info) {
+                setRateHeader($ticket, $rate_info.type, $rate_info.value);
+            }
+        }
+        else {
+            setRateHeader($ticket, '', '');
+        }
+
+    }
+}
+
 
 /*****************************************************************************/
 /*                     Bootstrap Datepicker interactions                     */
@@ -127,10 +346,10 @@ $('.btn-toggle').on('click', function() {
 });
 
 $('.booking-choice-btn').on('click', function (){
-    var inputElement = $(this).parent().find('input');
-    if(inputElement !== null) {
-        var choice = $(this).val();
-        inputElement.val(choice);
+    var $inputElement = $(this).parent().find('input');
+    if($inputElement !== null) {
+        var $choice = $(this).val();
+        $inputElement.val($choice);
     }
 });
 
@@ -139,6 +358,7 @@ $('.booking-choice-btn').on('click', function (){
 /*****************************************************************************/
 $('.addBtn').on('click', function(e) {
     ticketFormBuilder();
+
     e.preventDefault();
 });
 
@@ -150,54 +370,13 @@ $('.addBtn').on('click', function(e) {
 /*****************************************************************************/
 /*                          Init booking form                                */
 /*****************************************************************************/
+var $rates = [];
 $(document).ready( function(){
     var $step1 = $('.step-booking');
     var $step2 = $('.step-tickets');
 
- /* ******************* Step1 Handling ********************* */
-    showStep($step1);
-    hideStep($step2);
+    initRates();
 
-    var $step1BtnDiv = $step1.find('.step-buttons-container');
-    if($step1BtnDiv !== null && $step1BtnDiv.length === 1) {
-        hideStep($step1BtnDiv);
-    }
-
-    var $coordonnees = $step1.find('.coordonnees');
-    var $allInputText = $coordonnees.find('input[type=text], input[type=email]');
-    $allInputText.on('input', function() {
-            var $continue = true;
-            $allInputText.each(function() {
-                $continue = $continue && (!isEmpty($(this))) ;
-            });
-
-            if($continue === true) {
-                showStep($step1BtnDiv);
-            }
-            else {
-                hideStep($step1BtnDiv);
-            }
-        }
-    );
-
-    /* ******************* Step2 Handling ********************* */
-    var $step1Btn = $step1BtnDiv.find('button');
-    $step1Btn.on('click', function() {
-            var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
-            if($ticketsDiv.children().length === 0) {
-                ticketFormBuilder();
-            }
-            showStep($step2);
-            hideStep($step1);
-        }
-    );
-
-    var $step2BtnDiv = $step2.find('.step-buttons-container');
-    var $step2PrevBtn = $step2BtnDiv.find('.previousBtn');
-    $step2PrevBtn.on('click', function(){
-            showStep($step1);
-            hideStep($step2);
-        }
-    );
+    initialize($step1, $step2);
 });
 

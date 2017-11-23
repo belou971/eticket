@@ -97,4 +97,15 @@ class HomeController extends Controller
 
         return new JsonResponse(array('ticket' => "$ticket_template"));
     }
+
+    public function loadAction() {
+        $rateRepo = $this->getDoctrine()->getManager()->getRepository('EOETicketBundle:Rate');
+        if(is_null($rateRepo)) {
+            throw new NotFoundHttpException("Impossible d'accèder à la base de données");
+        }
+
+        $rates = $rateRepo->jsonFindAll();
+
+        return new JsonResponse($rates);
+    }
 }

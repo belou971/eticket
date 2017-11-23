@@ -20,7 +20,10 @@ class TicketType extends AbstractType
         $builder
             ->add('visitorName', TextType::class, array('required' => true))
             ->add('visitorSurname', TextType::class, array('required' => true))
-            ->add('visitorDtBirth', BirthdayType::class, array('required' => true,'format' => 'yyyy-MM-dd'))
+            ->add('visitorDtBirth', BirthdayType::class, array(
+                'required' => true,
+                'placeholder' => array('day'=>'Jour', 'month'=>'Mois', 'year'=>'Année'),
+                'format' => 'dd-MM-yyyy'))
             ->add('priceHT', RateType::class, array('label' => false));
     }
     

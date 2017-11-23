@@ -10,4 +10,25 @@ namespace EO\ETicketBundle\Repository;
  */
 class RateRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function jsonFindAll() {
+        $rates = $this->findAll();
+
+        return json_encode($this->formatToJsonArray($rates), JSON_UNESCAPED_UNICODE);
+    }
+
+    private function formatToJsonArray($rates) {
+
+        $jsonRates = array();
+
+        foreach($rates as $rate) {
+            $rateRow = array('id' => $rate->getId(),
+                             'type' => $rate->getRateType(),
+                             'ageMax' => $rate->getAgeMax(),
+                              'value' => $rate->getValue());
+
+            $jsonRates[] = $rateRow;
+        }
+
+        return $jsonRates;
+    }
 }

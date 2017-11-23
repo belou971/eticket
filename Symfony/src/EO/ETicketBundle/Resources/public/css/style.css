@@ -222,7 +222,7 @@ input[type=checkbox] {
     visibility: hidden;
 }
 
-.slideThree {
+[class^='slideThree'] {
     width: 80px;
     height: 26px;
     background: #ccdaaa;
@@ -237,7 +237,7 @@ input[type=checkbox] {
     box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,0.2);
 }
 
-.slideThree:after {
+[class^='slideThree']:after {
     content: 'NON';
     font: 12px/26px Arial, sans-serif;
     color: #ff414c;
@@ -248,7 +248,7 @@ input[type=checkbox] {
     text-shadow: 1px 1px 0px rgba(255,255,255,.15);
 }
 
-.slideThree:before {
+[class^='slideThree']:before {
     content: 'OUI';
     font: 12px/26px Arial, sans-serif;
     color: #00bf00;
@@ -258,7 +258,7 @@ input[type=checkbox] {
     font-weight: bold;
 }
 
-.slideThree label {
+[class^='slideThree'] label {
     display: block;
     width: 34px;
     height: 20px;
@@ -291,7 +291,7 @@ input[type=checkbox] {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
 }
 
-.slideThree input[type=checkbox]:checked + label {
+[class^='slideThree'] input[type=checkbox]:checked + label {
     left: 43px;
 }
 
