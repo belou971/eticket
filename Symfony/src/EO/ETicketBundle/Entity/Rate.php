@@ -4,7 +4,7 @@ namespace EO\ETicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use EO\ETicketBundle\Enum\RateEnum;
-use EO\ETicketBundle\Type\RateType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Rate
@@ -27,6 +27,7 @@ class Rate
      * @var \EO\ETicketBundle\Enum\RateEnum
      *
      * @ORM\Column(type="RateType")
+     * @Assert\Choice(callback = {"RateEnum", "getValues"}, message = "Type de tarif inconnu")
      */
     private $rateType;
 
@@ -126,4 +127,5 @@ class Rate
     {
         return $this->ageMax;
     }
+
 }

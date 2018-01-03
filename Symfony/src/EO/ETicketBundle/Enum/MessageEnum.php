@@ -12,10 +12,11 @@ namespace EO\ETicketBundle\Enum;
 class MessageEnum
 {
     /*  References    */
-    const BOOKING_DATE       = "booking-date";
-    const AVAILABLE_DATE_YES = "available-date-yes";
-    const AVAILABLE_DATE_NO  = "available-date-no";
-    const UNKOWN_REFERENCE   = "unknown-ref";
+    const BOOKING_DATE               = "booking-date";
+    const AVAILABLE_DATE_YES         = "available-date-yes";
+    const AVAILABLE_DATE_NO          = "available-date-no";
+    const AVAILABLE_DATE_OUT_OF_DATE = "available-date-out-of-date";
+    const UNKOWN_REFERENCE           = "unknown-ref";
 
     /**
      * List of all references of messages
@@ -26,6 +27,7 @@ class MessageEnum
                              self::BOOKING_DATE,
                              self::AVAILABLE_DATE_YES,
                              self::AVAILABLE_DATE_NO,
+                             self::AVAILABLE_DATE_OUT_OF_DATE,
                              self::UNKOWN_REFERENCE
                             ];
 

@@ -13,3 +13,7 @@ eoe_ticket_addticket:
 eoe_ticket_loadrates:
     path: /load
     defaults: { _controller: EOETicketBundle:Home:load }
+
+eoe_ticket_paiement:
+    path:     /paiement
+    defaults: { _controller: EOETicketBundle:Home:paiement }

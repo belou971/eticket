@@ -2,14 +2,14 @@
 {% use 'bootstrap_3_layout.html.twig' %}
 
 {# ---- date_picket widget ---- #}
-{%- block _eo_eticketbundle_booking_dtVisitor_date_widget -%}
+{# - block _eo_eticketbundle_booking_dtVisitor_date_widget -%}
     <div {{ block('attributes') }} ></div>
     <input type="hidden" {{ block('widget_attributes') }} />
-{%- endblock _eo_eticketbundle_booking_dtVisitor_date_widget -%}
+{%- endblock _eo_eticketbundle_booking_dtVisitor_date_widget - #}
 
 
 {# ---- booking choice types widget ---- #}
-{%- block booking_button_widget -%}
+{# - block booking_button_widget -%}
     {% if is_active %}
         {%- set optional_class = 'active btn-success' -%}
         {{ app.session.set('default_value', choice.value) }}
@@ -35,4 +35,4 @@
             <input type="hidden" {{ block('widget_attributes') }} value = "{{ app.session.get('default_value') }}" />
         </div>
     {% endspaceless %}
-{%- endblock _eo_eticketbundle_booking_bookingType_widget -%}
+{%- endblock _eo_eticketbundle_booking_bookingType_widget - #}

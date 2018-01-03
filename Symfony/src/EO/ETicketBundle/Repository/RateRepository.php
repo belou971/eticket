@@ -10,6 +10,20 @@ namespace EO\ETicketBundle\Repository;
  */
 class RateRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getRateByAge($age) {
+        $qb = $this->createQueryBuilder('r');
+
+        $qb->where('r.ageMax is not null')
+            ->andWhere('r.ageMax >= :age')
+            ->setParameter('age', $age)
+            ->orderBy('r.ageMax', 'ASC')
+            ->setMaxResults(1);
+
+        $query = $qb->getQuery();
+
+        return $query->getSingleResult();
+    }
+
     public function jsonFindAll() {
         $rates = $this->findAll();
 
@@ -24,7 +38,7 @@ class RateRepository extends \Doctrine\ORM\EntityRepository
             $rateRow = array('id' => $rate->getId(),
                              'type' => $rate->getRateType(),
                              'ageMax' => $rate->getAgeMax(),
-                              'value' => $rate->getValue());
+                             'value' => $rate->getValue());
 
             $jsonRates[] = $rateRow;
         }

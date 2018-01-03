@@ -44,6 +44,7 @@ class Messages
             MessageEnum::BOOKING_DATE       => "Vous souhaitez réserver pour le %s ",
             MessageEnum::AVAILABLE_DATE_YES => "Il reste %d place(s) disponible(s)",
             MessageEnum::AVAILABLE_DATE_NO  => "Il n'y a plus de places disponibles",
+            MessageEnum::AVAILABLE_DATE_OUT_OF_DATE => "Nous sommes désolés, les réservations sont terminées pour le %s",
             MessageEnum::UNKOWN_REFERENCE   => "Cette référence est inconnue"
         );
     }

@@ -18,26 +18,29 @@ function initialize($step1, $step2)
 
     var $coordonnees = $step1.find('.coordonnees');
     var $allInputText = $coordonnees.find('input[type=text], input[type=email], select');
-    $allInputText.on('change', function() {
-            var $continue = true;
-            $allInputText.each(function() {
-                if($(this).is('input')) {
-                    $continue = $continue && (!isEmpty($(this)));
-                }
-
-                if($(this).is('select')) {
-                    $continue = $continue && isSelected($(this));
-                }
-            });
-
-            if($continue === true) {
-                showStep($step1BtnDiv);
+    var enableNextBtn = function() {
+        var $continue = true;
+        $allInputText.each(function() {
+            if($(this).is('input')) {
+                $continue = $continue && (!isEmpty($(this)));
             }
-            else {
-                hideStep($step1BtnDiv);
+
+            if($(this).is('select')) {
+                $continue = $continue && isSelected($(this));
             }
+        });
+
+        if($continue === true) {
+            showStep($step1BtnDiv);
         }
-    );
+        else {
+            hideStep($step1BtnDiv);
+        }
+    };
+    enableNextBtn();
+
+    $allInputText.on('change', enableNextBtn);
+    $allInputText.on('input', enableNextBtn);
 
     /* ******************* Step2 Handling ********************* */
     var $step1Btn = $step1BtnDiv.find('button');
@@ -113,10 +116,13 @@ function getIndex() {
 
 //Build a ticket form
 function ticketFormBuilder() {
-    $.post("add")
+
+    var $ticketsDiv   = $('div#eo_eticketbundle_booking_tickets');
+    var $selectedDate = $('input.date-picker').val();
+    var $ticketinfos  = {nbaddedticket: $ticketsDiv.children().length, date: $selectedDate};
+    $.post("add", $ticketinfos)
         .done( function(data) {
 
-                var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
                 var $index = getIndex();
                 var $ticketForm = replaceBy(data.ticket,'__name__', $index);
                 $ticketsDiv.append($ticketForm);
@@ -131,6 +137,9 @@ function ticketFormBuilder() {
                 handlingBtns($newTicket);
                 bindInputs($newTicket);
 
+                var $disabled = (data.place <= 0);
+                $('.addBtn').attr('disabled', $disabled);
+
                 if($ticketsDiv.children().length > 0) {
                     var $step2 = $('.step-tickets');
                     var $step2BtnDiv = $step2.find('.step-buttons-container');
@@ -139,6 +148,20 @@ function ticketFormBuilder() {
                 }
             }
         );
+}
+
+function loadPrices() {
+
+    var $ticketsContainer   = $('div#eo_eticketbundle_booking_tickets');
+    var $nbTickets          = $ticketsContainer.children().length;
+    var $tickets            = $ticketsContainer.children();
+
+    $tickets.each(function(){
+        var $ticket = $(this).find('.ticket-container');
+        var $ticket_id = $ticket.attr('id');
+        updatePrice($ticket_id);
+        handlingBtns($ticket);
+    });
 }
 
 //To Fill automatically the first ticket with address information of the buyer
@@ -224,6 +247,8 @@ function initRates() {
             $.each(JSON.parse(data), function($idx, $obj) {
                 $rates.push({"id": $obj.id, "type": $obj.type, "ageMax":$obj.ageMax, "value": $obj.value});
             });
+
+            loadPrices();
         });
 }
 
@@ -323,19 +348,26 @@ var $dpicker = $('input.date-picker');
 
 $dpicker.datetimepicker({
     locale: 'fr',
-    format: 'L',
+    format: 'YYYY-MM-DD',
     inline: true,
     minDate: new Date(),
     daysOfWeekDisabled: [0, 6]
 });
 
 $dpicker.on('dp.change', function(e){
-    $('input.date-picker').val(e.date.format('L'));
+    $('input.date-picker').val(e.date.format('YYYY-MM-DD'));
 
-    getNumberPlaceForDate(e.date.format('L'));
+    getNumberPlaceForDate(e.date.format('YYYY-MM-DD'));
 
     displayDateInfo();
 });
+
+function initDatePicker() {
+    if($dpicker.data('value') !== $dpicker.val()) {
+        $dpicker.val($dpicker.data('value'));
+        $dpicker.data()
+    }
+}
 
 
 /*****************************************************************************/
@@ -378,5 +410,8 @@ $(document).ready( function(){
     initRates();
 
     initialize($step1, $step2);
+
+    initDatePicker();
 });
+
 

@@ -3,6 +3,8 @@
 namespace EO\ETicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * AvailableDate
@@ -25,6 +27,8 @@ class AvailableDate
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * @Assert\Date(message = "La date n'est pas valide")
+     * @Assert\NotNull(message = "Quelle est la date de visite?")
      */
     private $date;
 
@@ -41,7 +45,7 @@ class AvailableDate
      */
     public function __construct()
     {
-        $this->placeAvailable = 100;
+        $this->placeAvailable = 1000;
     }
 
 
@@ -104,15 +108,45 @@ class AvailableDate
     }
 
 
-    public function decreasePlaceAvailable()
+    public function decreasePlaceAvailable($nbBookedPlace)
     {
-        $this->placeAvailable--;
+        $this->placeAvailable -= $nbBookedPlace;
     }
 
 
-    public function formatDateToLetter() {
+    public function formatDateToLetter()
+    {
         setlocale(LC_TIME, 'fr_FR.utf8');
         return strftime("%A %e %B %Y", $this->date->getTimestamp());
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     * @Assert\IsTrue(message = "Les réservations sont terminées pour cette date")
+     * @return bool
+     */
+    public function isDate()
+    {
+        //si date correspond à la celle de maintenant
+        //verifier que l'heure actuelle est plus petite que 14h
+        $today_str = date_format(new \DateTime(), 'Y-m-d');
+        $today = new \DateTime($today_str);
+        $nbOfDay = $today->diff($this->getDate())->format('%R%a');
+        if($nbOfDay > 0) {
+            return true;
+        }
+        else  if ($nbOfDay < 0) {
+            return false;
+        }
+
+        $end_booking = $today->setTime(14,00);
+        $datetime_now = date_create();
+        if($datetime_now > $end_booking)
+        {
+            return false;
+        }
+
+        return true;
     }
 }
 

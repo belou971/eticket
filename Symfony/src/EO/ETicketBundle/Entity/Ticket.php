@@ -4,6 +4,7 @@ namespace EO\ETicketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use EO\ETicketBundle\Entity\Booking;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -11,7 +12,6 @@ use EO\ETicketBundle\Entity\Booking;
  *
  * @ORM\Table(name="eo_ticket")
  * @ORM\Entity(repositoryClass="EO\ETicketBundle\Repository\TicketRepository")
- * @ORM\HasLifecycleCallbacks()
  */
 class Ticket
 {
@@ -28,6 +28,7 @@ class Ticket
      * @var string
      *
      * @ORM\Column(name="visitorName", type="string", length=255)
+     * @Assert\NotBlank(message ="Le nom est vide", payload={"severity"="error"})
      */
     private $visitorName;
 
@@ -35,6 +36,7 @@ class Ticket
      * @var string
      *
      * @ORM\Column(name="visitorSurname", type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom est vide", payload={"severity"="error"})
      */
     private $visitorSurname;
 
@@ -42,13 +44,25 @@ class Ticket
      * @var \DateTime
      *
      * @ORM\Column(name="visitorDtBirth", type="date")
+     * @Assert\Date(message = "La date de naissance n'est pas valide", payload={"severity"="error"})
+     * @Assert\NotBlank(message = "La date de naissance est vide", payload={"severity"="error"})
      */
     private $visitorDtBirth;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="preferredRate", type="boolean", options={"default":false})
+     * @Assert\Type(
+     *     type="bool",
+     *     message="{{ value }} n'est pas valide"
+     * )
+     */
+    private $preferredRate;
+
+    /**
      * @var \EO\ETicketBundle\Entity\Rate
      *
-     * @ORM\OneToOne(targetEntity="EO\ETicketBundle\Entity\Rate", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="EO\ETicketBundle\Entity\Rate", inversedBy="ticket")
      * @ORM\JoinColumn(nullable=false)
      */
     private $priceHT;
@@ -56,7 +70,7 @@ class Ticket
     /**
      * @var Booking
      *
-     * @ORM\ManyToOne(targetEntity="EO\ETicketBundle\Entity\Booking", inversedBy="tickets")
+     * @ORM\ManyToOne(targetEntity="EO\ETicketBundle\Entity\Booking", inversedBy="tickets", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $booking;
@@ -125,7 +139,7 @@ class Ticket
     /**
      * Set priceHT
      *
-     * @param float $priceHT
+     * @param \EO\ETicketBundle\Entity\Rate $priceHT
      *
      * @return Ticket
      */
@@ -139,7 +153,7 @@ class Ticket
     /**
      * Get priceHT
      *
-     * @return float
+     * @return \EO\ETicketBundle\Entity\Rate
      */
     public function getPriceHT()
     {
@@ -194,18 +208,38 @@ class Ticket
         return $this->visitorDtBirth;
     }
 
+    /**
+     * Set preferredRate
+     *
+     * @param boolean $preferredRate
+     *
+     * @return Ticket
+     */
+    public function setPreferredRate($preferredRate)
+    {
+        $this->preferredRate = $preferredRate;
 
+        return $this;
+    }
 
     /**
-     * @ORM\PostPersist
+     * Get preferredRate
+     *
+     * @return boolean
      */
-    public function decreasePlace()
+    public function getPreferredRate()
     {
-        $visitDate = $this->booking->getDtVisitor();
+        return $this->preferredRate;
+    }
 
-        if(!is_null($visitDate)) {
-            $visitDate->decreasePlaceAvailable();
-        }
+    /**
+     * Get age of the visitor from the birthday
+     */
+    public function getAge()
+    {
+        $now = new \DateTime();
+        $age = $now->diff($this->getVisitorDtBirth());
 
+        return $age->format('%y');
     }
 }

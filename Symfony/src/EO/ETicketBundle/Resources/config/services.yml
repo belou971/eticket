@@ -9,6 +9,24 @@ services:
         tags:
           - {name: form.type, alias: bookingchoice }
 
+    form.type.ticket:
+        class: EO\ETicketBundle\Form\TicketType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+          - { name: form.type }
+
+    form.type.booking:
+          class: EO\ETicketBundle\Form\BookingType
+          arguments: ["@doctrine.orm.entity_manager"]
+          tags:
+            - { name: form.type }
+
+    eo_eticket.validator.notavailableplace:
+      class: EO\ETicketBundle\Validator\NotAvailablePlaceValidator
+      arguments: ["@doctrine.orm.entity_manager"]
+      tags:
+        - { name: validator.constraint_validator, alias: eo_eticket_notvailableplace }
+
 #    eoe_ticket.example:
 #        class: EO\ETicketBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]

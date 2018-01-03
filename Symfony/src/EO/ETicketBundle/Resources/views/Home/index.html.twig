@@ -6,15 +6,11 @@
 
     {% form_theme form 'EOETicketBundle:Form:custom_fields_form.html.twig' %}
 
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-
-    {# include 'EOETicketBundle:Form:AvailableDateForm.php.twig' #}
+    {{ form_start(form, {attr: {class: 'form-horizontal', novalidate: 'novalidate'}}) }}
 
     {% include 'EOETicketBundle:Form:BookingTypeForm.php.twig' %}
 
-    {#  include 'EOETicketBundle:Form:ticketsView.html.twig' #}
-
-    {# form_rest(form) #}
+    {{ form_rest(form) }}
 
     {{ form_end(form) }}
 

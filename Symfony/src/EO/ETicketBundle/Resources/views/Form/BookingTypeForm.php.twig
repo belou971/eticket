@@ -1,47 +1,80 @@
 
 <div class="step-booking">
     <label class="col-sm-12 required">Choisissez une date de réservation</label>
-    {{ form_errors(form.dtVisitor) }}
+    <div class="col-sm-12">
+        {{ form_errors(form.dtVisitor) }}
+    </div>
     <div class="col-sm-12">
         {{ form_widget(form.dtVisitor) }}
     </div>
+    <div class="col-sm-12">
+        {{ form_errors(form) }}
+    </div>
 
     <label class="col-sm-12 required">Choisissez le type de réservation</label>
-    {{ form_errors(form.bookingType) }}
     <div class="col-sm-12">
         {{ form_widget(form.bookingType) }}
     </div>
+    <div class="col-sm-12">
+        {{ form_errors(form.bookingType) }}
+    </div>
 
     <div class="form-group coordonnees">
-            <label class="col-sm-12 required">Vos coordonnées</label>
-
-        <div class="form-group">
+        <label class="col-sm-12 required">Vos coordonnées</label>
+        {% if form.name.vars.valid  %}
+            {% set valid1_css = 'has-success' %}
+        {% else %}
+            {% set valid1_css = 'has-error' %}
+        {% endif %}
+        <div class="form-group {{ valid1_css }}">
             {{ form_label(form.name, "Nom", {'label_attr':{'class': 'col-sm-3 control-label'}}) }}
-            {{ form_errors(form.name) }}
             <div class="col-sm-9">
              {{ form_widget(form.name, {'attr':{'class': 'form-control name'}}) }}
             </div>
+            <div class="col-sm-offset-3 col-sm-9">
+                {{ form_errors(form.name) }}
+            </div>
         </div>
-        <div class="form-group">
+        {% if form.surname.vars.valid  %}
+            {% set valid2_css = 'has-success' %}
+        {% else %}
+            {% set valid2_css = 'has-error' %}
+        {% endif %}
+        <div class="form-group {{ valid2_css }}">
             {{ form_label(form.surname, 'Prénom', {'label_attr':{'class': 'col-sm-3 control-label'}}) }}
-            {{ form_errors(form.surname) }}
             <div class="col-sm-9">
                 {{ form_widget(form.surname, {'attr':{'class': 'form-control surname'}}) }}
             </div>
+            <div class="col-sm-offset-3 col-sm-9">
+                {{ form_errors(form.surname) }}
+            </div>
         </div>
-        <div class="form-group">
+        {% if form.email.vars.valid  %}
+            {% set valid3_css = 'has-success' %}
+        {% else %}
+            {% set valid3_css = 'has-error' %}
+        {% endif %}
+        <div class="form-group {{ valid3_css }}">
             {{ form_label(form.email, 'Email', {'label_attr':{'class': 'col-sm-3 control-label'}}) }}
-            {{ form_errors(form.email) }}
             <div class="col-sm-9">
                 {{ form_widget(form.email, {'attr':{'class': 'form-control email'}}) }}
             </div>
+            <div class="col-sm-offset-3 col-sm-9">
+                {{ form_errors(form.email) }}
+            </div>
         </div>
-
-        <div class="form-group">
+        {% if form.dtBirth.vars.valid  %}
+            {% set valid4_css = 'has-success' %}
+        {% else %}
+            {% set valid4_css = 'has-error' %}
+        {% endif %}
+        <div class="form-group {{ valid4_css }}">
             {{ form_label(form.dtBirth, 'Date de naissance', {'label_attr':{'class': 'col-sm-3'}}) }}
-            {{ form_errors(form.dtBirth) }}
             <div class="col-sm-9">
                 {{ form_widget(form.dtBirth) }}
+            </div>
+            <div class="col-sm-offset-3 col-sm-9">
+                {{ form_errors(form.dtBirth) }}
             </div>
         </div>
     </div>

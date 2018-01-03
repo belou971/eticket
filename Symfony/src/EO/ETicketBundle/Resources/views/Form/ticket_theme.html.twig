@@ -1,0 +1,165 @@
+{# src/Acme/DemoBundle/Resources/views/Form/ticket_theme.html.twig #}
+
+{# ---- date_picker widget ---- #}
+{%- block datepicker_widget -%}
+    <div {{ block('attributes') }} ></div>
+    {%  set date_value = value %}
+    {% if form.vars.value is empty %}
+        {%  set date_value ="now"|date('Y-m-d') %}
+    {% endif %}
+    <input type="hidden" {{ block('widget_attributes') }} value="{{ date_value }}" data-value="{{ date_value }}" />
+{%- endblock -%}
+
+
+{# ---- booking choice types widget ---- #}
+{%- block booking_button_widget -%}
+    {% if is_active %}
+        {%- set optional_class = 'active btn-success' -%}
+    {% else %}
+        {%- set optional_class = 'btn-default' -%}
+    {% endif %}
+    {% set button_id =  id ~'_'~ loop.index0 %}
+    <button class="btn booking-choice-btn {{ optional_class }}" type="{{ type|default('button') }}" id="{{ button_id }}" name="{{ full_name }}" {{ block('attributes') }} value="{{ choice.value }}">{{ choice.label }}</button>
+{%- endblock -%}
+
+{%- block booking_choice_options -%}
+    {%- set options = choices -%}
+    {% for group_label, choice in options %}
+        {% set is_active = loop.first %}
+        {{- block('booking_button_widget') -}}
+    {% endfor %}
+{%- endblock booking_choice_options -%}
+
+{%- block bookingchoice_widget -%}
+    {% spaceless %}
+        <div class="btn-toggle" id="{{ id ~'_choice' }}">
+            {{ block('booking_choice_options') }}
+            <input type="hidden" {{ block('widget_attributes') }} value = "{{ value }}" />
+        </div>
+    {% endspaceless %}
+{%- endblock bookingchoice_widget -%}
+
+
+
+{%- block ticket_widget -%}
+    {% spaceless %}
+        <div id="{{ id }}" class="container-fluid ticket-container">
+            <div class="row">
+                <div class="col-sm-12 text-center ticket-form-header theme-color-normal">
+                    <h3 class="ticket-title">Ticket</h3>
+                </div>
+            </div>
+            {# if (nbPlace - nbTicket)> 0 and (nbPlace - nbTicket) <= 5 %}
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <p class="text-warning label-info">
+                            Attention! Il reste {{ nbPlace - nbTicket }} places disponibles
+                        </p>
+                    </div>
+                </div>
+            {% endif #}
+            <div class="row row-color">
+                <div class="col-sm-8 visitor-form ">
+                    {% if form.visitorName.vars.valid  %}
+                        {% set valid1_style = 'has-success' %}
+                    {% else %}
+                        {% set valid1_style = 'has-error' %}
+                    {% endif %}
+                    <div class="form-group {{ valid1_style }}">
+                        <label class="col-sm-3 label-control control-label required" for="{{ form.visitorName.vars.id }}">Nom</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="{{ form.visitorName.vars.id }}" name="{{ form.visitorName.vars.full_name }}" required="required" class="form-control form-control name" value="{{ form.visitorName.vars.value }}">
+                        </div>
+                        <div class="col-sm-offset-3 col-sm-9">
+                            {{ form_errors(form.visitorName) }}
+                        </div>
+                    </div>
+                    {% if form.visitorSurname.vars.valid  %}
+                        {% set valid2_style = 'has-success' %}
+                    {% else %}
+                        {% set valid2_style = 'has-error' %}
+                    {% endif %}
+                    <div class="form-group {{ valid2_style }}">
+                        <label class="col-sm-3 label-control control-label required" for="{{ form.visitorSurname.vars.id }}">Prénom</label>
+                        <div class="col-sm-9 has-success">
+                            <input type="text" id="{{ form.visitorSurname.vars.id }}" name="{{ form.visitorSurname.vars.full_name }}" required="required" class="form-control form-control surname" value="{{ form.visitorSurname.vars.value }}">
+                        </div>
+                        <div class="col-sm-offset-3 col-sm-9">
+                            {{ form_errors(form.visitorSurname) }}
+                        </div>
+                    </div>
+                    {% if form.visitorDtBirth.vars.valid  %}
+                        {% set valid3_style = 'has-success' %}
+                    {% else %}
+                        {% set valid3_style = 'has-error' %}
+                    {% endif %}
+                    <div class="form-group {{ valid3_style }}">
+                        <label class="col-sm-3 control-label required">Date de naissance</label>
+                        <div class="col-sm-9">
+                            <div id="{{ form.visitorDtBirth.vars.id }}" class="form-inline">
+                                <select id="{{ id ~ '_visitorDtBirth_day' }}" name="{{ form.visitorDtBirth.vars.full_name ~ '[day]'}}" class="form-control day">
+                                    {% for i in 0..31 %}
+                                        {% if i == 0 %}
+                                            <option value {% if form.visitorDtBirth.vars.value.day is null %}selected="selected"{% endif %}>Jour</option>
+                                        {% else %}
+                                            {% set day = (i < 10)?('0' ~ i):i %}
+                                            <option value="{{ i }}" {% if form.visitorDtBirth.vars.value.day is not null and (form.visitorDtBirth.vars.value.day == i) %}selected="selected"{% endif %}>{{ day }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>-<select id="{{ id ~ '_visitorDtBirth_month' }}" name="{{ form.visitorDtBirth.vars.full_name ~ '[month]'}}" class="form-control month">
+                                    {% for j in 0..12 %}
+                                        {% if j == 0 %}
+                                            <option value {% if form.visitorDtBirth.vars.value.month is null %}selected="selected"{% endif %}>Mois</option>
+                                        {% else %}
+                                            {% set month = (j < 10)?('0' ~ j):j %}
+                                            <option value="{{ j }}" {% if form.visitorDtBirth.vars.value.month is not null and (form.visitorDtBirth.vars.value.month == j) %}selected="selected"{% endif %}>{{ month }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>-<select id="{{ id ~ '_visitorDtBirth_year' }}" name="{{ form.visitorDtBirth.vars.full_name ~ '[year]'}}" class="form-control year">
+                                    <option value {% if form.visitorDtBirth.vars.value.year is null %}selected="selected"{% endif %}>Année</option>
+                                    {% set year_max = "now"|date('Y') %}
+                                    {% set year_min = year_max - 100 %}
+                                    {% for y in year_min..year_max %}
+                                         <option value="{{ y }}" {% if form.visitorDtBirth.vars.value.year is not null and (form.visitorDtBirth.vars.value.year == y) %}selected="selected"{% endif %}>{{ y }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-3 col-sm-9">
+                            {{ form_errors(form.visitorDtBirth) }}
+                        </div>
+                    </div>
+                    <div class="form-group has-success">
+                        <label class="col-sm-3 control-label">Tarif réduit</label>
+                        <div class="col-sm-9">
+                            <div class="{{ form.preferredRate.vars.id }}">
+                                <input type="checkbox" id="{{ form.preferredRate.vars.id }}" name="{{ form.preferredRate.vars.full_name }}" value="1" {% if form.preferredRate.vars.checked %}checked="checked"{% endif %} >
+                                <label for="{{ form.preferredRate.vars.id }}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 rate ">
+                    <div class="form-group">
+                        <div class="col-sm-12 rate-header text-center theme-color-normal">
+                            <h3 class="rate-type">Tarif</h3>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 rate-label-color-normal control-label required" for="ticket_{{ label }}_priceHT_value">Prix (H.T)</label>
+
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" id="ticket_{{ label }}_priceHT_value" required="required" class="price  form-control" readonly="true">
+                                <div class="input-group-addon">€</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="col-sm-12 text-center btn btn-lg btn-danger delete-btn" type="button">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endspaceless %}
+{%- endblock -%}

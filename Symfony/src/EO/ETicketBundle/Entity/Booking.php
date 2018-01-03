@@ -6,12 +6,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use EO\ETicketBundle\Enum\BookingEnum;
 use EO\ETicketBundle\Type\BookingType;
+use EO\ETicketBundle\Enum\StatusEnum;
+use EO\ETicketBundle\Type\StatusType;
+use Symfony\Component\Validator\Constraints as Assert;
+use EO\ETicketBundle\Validator as BookingAssert;
 
 /**
  * Booking
  *
  * @ORM\Table(name="eo_booking")
  * @ORM\Entity(repositoryClass="EO\ETicketBundle\Repository\BookingRepository")
+ * @BookingAssert\NotAvailablePlace
  */
 class Booking
 {
@@ -28,6 +33,7 @@ class Booking
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(message ="Le nom est vide", payload={"severity"="error"})
      */
     private $name;
 
@@ -35,6 +41,7 @@ class Booking
      * @var string
      *
      * @ORM\Column(name="surname", type="string", length=255)
+     * @Assert\NotBlank(message="Le prénom est vide", payload={"severity"="error"})
      */
     private $surname;
 
@@ -42,6 +49,10 @@ class Booking
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=100)
+     * @Assert\Email(
+     *     message = "L'adresse mail {{ value }} n'est pas une adresse mail valide",
+     *     payload={"severity"="error"}
+     * )
      */
     private $email;
 
@@ -49,6 +60,8 @@ class Booking
      * @var \DateTime
      *
      * @ORM\Column(name="dtBirth", type="date")
+     * @Assert\Date(message = "La date de naissance n'est pas valide", payload={"severity"="error"})
+     * @Assert\NotBlank(message = "La date de naissance est vide", payload={"severity"="error"})
      */
     private $dtBirth;
 
@@ -56,7 +69,8 @@ class Booking
     /**
      * @var \EO\ETicketBundle\Entity\AvailableDate
      *
-     * @ORM\ManyToOne(targetEntity="\EO\ETicketBundle\Entity\AvailableDate")
+     * @ORM\ManyToOne(targetEntity="\EO\ETicketBundle\Entity\AvailableDate", cascade={"persist"})
+     * @Assert\Valid(payload={"severity"="error"})
      */
     private $dtVisitor;
 
@@ -70,7 +84,6 @@ class Booking
     /**
      * @var float
      *
-     * @ORM\Column(name="invoice", type="float")
      */
     private $invoice;
 
@@ -79,6 +92,9 @@ class Booking
      * @var BookingEnum
      *
      * @ORM\Column(type="BookingType")
+     * @Assert\Choice(
+     *     choices ={"full","half"},
+     *     message="{{ value }} n'est pas un type de réservation reconnu")
      */
     private $bookingType;
 
@@ -86,9 +102,17 @@ class Booking
     /**
      * @var \EO\ETicketBundle\Entity\Ticket
      *
-     * @ORM\OneToMany(targetEntity="EO\ETicketBundle\Entity\Ticket", mappedBy="booking")
+     * @ORM\OneToMany(targetEntity="EO\ETicketBundle\Entity\Ticket", mappedBy="booking", cascade={"remove"})
+     * @Assert\Valid()
      */
     private $tickets;
+
+    /**
+     * @var \EO\ETicketBundle\Enum\StatusEnum
+     *
+     * @ORM\Column(type="StatusType", nullable=false, options={"default":"stand by"})
+     */
+    private $status;
 
 
     /**
@@ -299,6 +323,8 @@ class Booking
     {
         $this->tickets = new ArrayCollection();
         $this->dtCreation = new \DateTime();
+        $this->invoice = 0;
+        $this->status = StatusEnum::STANDBY;
     }
 
     /**
@@ -335,5 +361,37 @@ class Booking
     public function getTickets()
     {
         return $this->tickets;
+    }
+
+    /**
+     * Set status
+     *
+     * @param StatusType $status
+     *
+     * @return Booking
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return StatusType
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function updateAvailablePlace($nbBookedPlace)
+    {
+        if( !is_null($this->getDtVisitor()) )
+        {
+            $this->getDtVisitor()->decreasePlaceAvailable($nbBookedPlace);
+        }
     }
 }
