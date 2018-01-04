@@ -10,6 +10,12 @@
     <div class="col-sm-12">
         {{ form_errors(form) }}
     </div>
+    <div class="row">
+        <div class="dateinfo text-default label-warning purchase-flow-border col-lg-12 text-center" style="display: none">
+            <p class="booking-date-info"></p>
+            <p class="available-place-info"></p>
+        </div>
+    </div>
 
     <label class="col-sm-12 required">Choisissez le type de réservation</label>
     <div class="col-sm-12">
@@ -76,13 +82,6 @@
             <div class="col-sm-offset-3 col-sm-9">
                 {{ form_errors(form.dtBirth) }}
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="dateinfo purchase-flow-border col-lg-12 text-center" style="display: none">
-            <p class="booking-date-info"></p>
-            <p class="available-place-info"></p>
         </div>
     </div>
     <div class="step-buttons-container row">

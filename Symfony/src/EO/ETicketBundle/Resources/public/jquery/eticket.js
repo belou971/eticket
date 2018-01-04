@@ -351,6 +351,7 @@ $dpicker.datetimepicker({
     format: 'YYYY-MM-DD',
     inline: true,
     minDate: new Date(),
+    useCurrent: false,
     daysOfWeekDisabled: [0, 6]
 });
 
@@ -361,13 +362,6 @@ $dpicker.on('dp.change', function(e){
 
     displayDateInfo();
 });
-
-function initDatePicker() {
-    if($dpicker.data('value') !== $dpicker.val()) {
-        $dpicker.val($dpicker.data('value'));
-        $dpicker.data()
-    }
-}
 
 
 /*****************************************************************************/
@@ -411,7 +405,6 @@ $(document).ready( function(){
 
     initialize($step1, $step2);
 
-    initDatePicker();
 });
 
 

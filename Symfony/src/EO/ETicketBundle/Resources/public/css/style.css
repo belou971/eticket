@@ -107,9 +107,9 @@ ol.step-names > li:before {
 /*          1.2.2  Booking type button  */
 /****************************************/
 .dateinfo {
-    background-color: #fcfda5;
+    /*background-color: #fcfda5;
     margin: 1.0em 0;
-    font-size: large;
+    font-size: large;*/
 }
 
 /*        1.3 Booking type button style */
