@@ -4,8 +4,6 @@
 
 {% block form %}
 
-    {% form_theme form 'EOETicketBundle:Form:custom_fields_form.html.twig' %}
-
     {{ form_start(form, {attr: {class: 'form-horizontal', novalidate: 'novalidate'}}) }}
 
     {% include 'EOETicketBundle:Form:BookingTypeForm.php.twig' %}

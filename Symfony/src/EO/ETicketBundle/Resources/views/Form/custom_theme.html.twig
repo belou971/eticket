@@ -7,13 +7,13 @@
     {% if form.vars.value is empty %}
         {%  set date_value ="now"|date('Y-m-d') %}
     {% endif %}
-    <input type="hidden" {{ block('widget_attributes') }} value="{{ date_value }}" data-value="{{ date_value }}" />
+    <input type="hidden" {{ block('widget_attributes') }} value="{{ date_value }}" />
 {%- endblock -%}
 
 
 {# ---- booking choice types widget ---- #}
 {%- block booking_button_widget -%}
-    {% if is_active %}
+    {% if value == choice.value %}
         {%- set optional_class = 'active btn-success' -%}
     {% else %}
         {%- set optional_class = 'btn-default' -%}
@@ -25,7 +25,6 @@
 {%- block booking_choice_options -%}
     {%- set options = choices -%}
     {% for group_label, choice in options %}
-        {% set is_active = loop.first %}
         {{- block('booking_button_widget') -}}
     {% endfor %}
 {%- endblock booking_choice_options -%}
@@ -49,15 +48,6 @@
                     <h3 class="ticket-title">Ticket</h3>
                 </div>
             </div>
-            {# if (nbPlace - nbTicket)> 0 and (nbPlace - nbTicket) <= 5 %}
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <p class="text-warning label-info">
-                            Attention! Il reste {{ nbPlace - nbTicket }} places disponibles
-                        </p>
-                    </div>
-                </div>
-            {% endif #}
             <div class="row row-color">
                 <div class="col-sm-8 visitor-form ">
                     {% if form.visitorName.vars.valid  %}

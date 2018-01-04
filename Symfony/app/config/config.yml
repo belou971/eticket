@@ -39,7 +39,7 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - 'bootstrap_3_layout.html.twig'
-        - 'EOETicketBundle:Form:ticket_theme.html.twig'
+        - 'EOETicketBundle:Form:custom_theme.html.twig'
 
 # Doctrine Configuration
 doctrine:

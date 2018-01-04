@@ -51,6 +51,7 @@ function initialize($step1, $step2)
             }
             showStep($step2);
             hideStep($step1);
+            updateStepName(2);
         }
     );
 
@@ -59,6 +60,7 @@ function initialize($step1, $step2)
     $step2PrevBtn.on('click', function(){
             showStep($step1);
             hideStep($step2);
+            updateStepName(1);
         }
     );
 }
@@ -340,6 +342,29 @@ function updatePrice($ticket_id) {
     }
 }
 
+function showInvalidStep($step1, $step2)
+{
+    var $step1HasError = ($step1.find('.has-error').length > 0);
+    var $step2HasError = ($step2.find('.has-error').length > 0);
+
+    if($step1HasError) {
+        //Nothing to do, because we display the step1 by default
+    }
+    else if($step2HasError) {
+        //We have to display the step 2 to show in priority the invalidates fields
+        showStep($step2);
+        hideStep($step1);
+    }
+}
+
+function updateStepName($nthChild)
+{
+    var stepNamesLst = $('ol.step-names');
+
+    stepNamesLst.find('li.active').removeClass();
+    stepNamesLst.find('li:nth-child('+$nthChild+')').addClass('active');
+}
+
 
 /*****************************************************************************/
 /*                     Bootstrap Datepicker interactions                     */
@@ -351,6 +376,7 @@ $dpicker.datetimepicker({
     format: 'YYYY-MM-DD',
     inline: true,
     minDate: new Date(),
+    useCurrent: false,
     daysOfWeekDisabled: [0, 6]
 });
 
@@ -361,13 +387,6 @@ $dpicker.on('dp.change', function(e){
 
     displayDateInfo();
 });
-
-function initDatePicker() {
-    if($dpicker.data('value') !== $dpicker.val()) {
-        $dpicker.val($dpicker.data('value'));
-        $dpicker.data()
-    }
-}
 
 
 /*****************************************************************************/
@@ -406,12 +425,21 @@ var $rates = [];
 $(document).ready( function(){
     var $step1 = $('.step-booking');
     var $step2 = $('.step-tickets');
+    var $step3 = $('.step-payment');
+    var $step4 = $('.step-confirmation');
 
-    initRates();
+    if($step1.length >0) {
+        initRates();
 
-    initialize($step1, $step2);
+        initialize($step1, $step2);
 
-    initDatePicker();
+        showInvalidStep($step1, $step2);
+    }
+
+    if($step3.length > 0) {
+
+    }
+
 });
 
 
