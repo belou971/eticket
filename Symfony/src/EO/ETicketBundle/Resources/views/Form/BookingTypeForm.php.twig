@@ -89,12 +89,31 @@
     </div>
 </div>
 
-<div class="step-tickets">
-    <label class="col-sm-12 required">Vos tickets</label>
-    {{ form_errors(form.tickets) }}
-    <div class="col-sm-12">
-        {{ form_widget(form.tickets) }}
+<div class="step-tickets ">
+    <div class="row">
+        <label class="col-sm-12 required">Vos tickets</label>
+        {{ form_errors(form.tickets) }}
     </div>
+    <div class="row">
+            {{ form_widget(form.tickets, {'attr':{'class': 'col-sm-12'}}) }}
+    </div>
+
+    <div class="row">
+        <div class="col-sm-offset-8 col-sm-4 col-xs-12 text-center">
+            <div class="container-fluid invoice-container theme-color-normal ">
+                <div class="row">
+                    <div class="col-sm-6 ">Total (H.T)</div><div id="invoiceFT" class="col-sm-6">0.00 €</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 ">T.V.A (20%)</div><div id="saleTax" class="col-sm-6 ">0.00 €</div>
+                </div>
+                <div class="row total-size">
+                    <div class="col-sm-6 ">Total</div><div id="invoiceTotal" class="col-sm-6 ">0.00 €</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <button class="btn btn-warning btn-lg addBtn col-sm-12" type="button">Nouveau ticket</button>
     </div>

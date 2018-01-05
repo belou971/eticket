@@ -2,22 +2,21 @@
 
 namespace EO\ETicketBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
+
 use EO\ETicketBundle\Entity\AvailableDate;
 use EO\ETicketBundle\Entity\Booking;
-use EO\ETicketBundle\Entity\Ticket;
+
 use EO\ETicketBundle\Enum\MessageEnum;
-use EO\ETicketBundle\Form\AvailableDateType;
+
 use EO\ETicketBundle\Form\BookingType;
-use EO\ETicketBundle\Form\TicketType;
+
 use EO\ETicketBundle\Type\Messages;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Validator\Constraints\DateTime;
-use Symfony\Component\HttpFoundation\Session\Session;
+
 
 class HomeController extends Controller
 {
@@ -54,16 +53,12 @@ class HomeController extends Controller
             }
         }
 
-        //var_dump($request->getSession()->get('booking'));
-        //getStepView($step_name, $form)
         return $this->render('EOETicketBundle:Home:index.html.twig', array('form' => $form->createView()));
     }
 
     public function dateAction(Request $request)
     {
         if($request->isMethod('POST')) {
-
-            $date_msg  = '';
             $place_msg = '';
             $entityMgr = $this->getDoctrine()->getManager();
             $availableDateRepo = $entityMgr->getRepository('EOETicketBundle:AvailableDate');

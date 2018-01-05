@@ -295,6 +295,19 @@ input[type=checkbox] {
     left: 43px;
 }
 
+/*    4. Total invoice container style                  */
+/*************************************************/
+.invoice-container {
+    margin-bottom: 1em;
+    padding: 1em 0;
+    border: 1px solid #c3a678;
+}
+
+.total-size {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
 
 /**********************************************************************************************************************/
 /*                                                Footer style                                                        */

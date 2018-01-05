@@ -213,6 +213,7 @@ function handlingBtns($ticket) {
             var $step2NextBtn = $step2BtnDiv.find('.nextBtn');
             hideStep($step2NextBtn);
         }
+        computeInvoice();
     });
 
 }
@@ -289,6 +290,8 @@ function setRateHeader($ticket, $type, $value ) {
             }
         }
     }
+
+    computeInvoice();
 }
 
 function getAge($ticket) {
@@ -311,6 +314,12 @@ function findRate($age){
         if( ($rate.type !== "t.v.a") && ($rate.type !== "réduit") ) {
             return ( ($rate.ageMax !== null) && ($age <= $rate.ageMax) ) ;
         }
+    });
+}
+
+function getTVA(){
+    return $rates.find(function($rate){
+        return ($rate.type === "t.v.a");
     });
 }
 
@@ -363,6 +372,31 @@ function updateStepName($nthChild)
 
     stepNamesLst.find('li.active').removeClass();
     stepNamesLst.find('li:nth-child('+$nthChild+')').addClass('active');
+}
+
+function sumPriceHt()
+{
+    var $ticketsContainer   = $('div#eo_eticketbundle_booking_tickets');
+    var $inputsRate = $ticketsContainer.find('input[id*=value]');
+    var $sum = 0;
+
+    $inputsRate.each(function() {
+        $sum += Number($(this).val());
+    });
+
+    return $sum;
+}
+
+function computeInvoice()
+{
+    var $taxRate         = getTVA();
+    var $invoiceFreeTaxe = sumPriceHt();
+    var $saleTax         = Number($taxRate.value) * $invoiceFreeTaxe;
+    var $invoiceTotal     = $invoiceFreeTaxe + $saleTax;
+
+    $('#invoiceFT').text($invoiceFreeTaxe.toFixed(2) + ' €');
+    $('#saleTax').text($saleTax.toFixed(2) + ' €');
+    $('#invoiceTotal').text($invoiceTotal.toFixed(2) + ' €');
 }
 
 
