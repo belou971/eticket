@@ -17,3 +17,13 @@
 /web/bundles/
 /db/
 /src/EO/*.php~
+!/.idea
+/.idea/*
+Symfony/components
+!/components/
+/components/*
+Supprimerait components/
+Supprimerait src/EO/ETicketBundle/Resources/public/components/
+Supprimerait .directory
+Supprimerait src/EO/ETicketBundle/Entity/AvailableDate.php~
+Supprimerait src/EO/ETicketBundle/Entity/Rate.php~
