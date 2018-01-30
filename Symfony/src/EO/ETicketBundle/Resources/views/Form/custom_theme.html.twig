@@ -119,11 +119,11 @@
                             {{ form_errors(form.visitorDtBirth) }}
                         </div>
                     </div>
-                    <div class="form-group has-success">
+                    <div class="form-group has-success" id="{{ form.preferredRate.vars.id ~ '_container'}}">
                         <label class="col-sm-3 control-label">Tarif réduit</label>
                         <div class="col-sm-9">
                             <div class="{{ form.preferredRate.vars.id }}">
-                                <input type="checkbox" id="{{ form.preferredRate.vars.id }}" name="{{ form.preferredRate.vars.full_name }}" value="1" {% if form.preferredRate.vars.checked %}checked="checked"{% endif %} >
+                                <input type="checkbox" id="{{ form.preferredRate.vars.id }}" name="{{ form.preferredRate.vars.full_name }}" value="1" {% if form.preferredRate.vars.checked %}checked="checked"{% endif %}>
                                 <label for="{{ form.preferredRate.vars.id }}"></label>
                             </div>
                         </div>

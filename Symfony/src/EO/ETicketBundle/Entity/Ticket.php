@@ -62,7 +62,7 @@ class Ticket
     /**
      * @var \EO\ETicketBundle\Entity\Rate
      *
-     * @ORM\ManyToOne(targetEntity="EO\ETicketBundle\Entity\Rate", inversedBy="ticket")
+     * @ORM\ManyToOne(targetEntity="EO\ETicketBundle\Entity\Rate", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $priceHT;
@@ -70,7 +70,7 @@ class Ticket
     /**
      * @var Booking
      *
-     * @ORM\ManyToOne(targetEntity="EO\ETicketBundle\Entity\Booking", inversedBy="tickets", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="EO\ETicketBundle\Entity\Booking", inversedBy="tickets")
      * @ORM\JoinColumn(nullable=false)
      */
     private $booking;

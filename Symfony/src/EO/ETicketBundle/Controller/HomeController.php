@@ -9,8 +9,8 @@ use EO\ETicketBundle\Entity\Booking;
 use EO\ETicketBundle\Enum\MessageEnum;
 
 use EO\ETicketBundle\Form\BookingType;
-
 use EO\ETicketBundle\Type\Messages;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,30 +24,20 @@ class HomeController extends Controller
     {
         $entityMgr = $this->getDoctrine()->getManager();
         $booking = new Booking($entityMgr);
-        $form = $this->createForm(BookingType::class, $booking);
-        if(!$request->getSession()->has('booking')) {
-            $request->getSession()->set('booking', $booking);
+
+        $session = $request->getSession();
+        if(!is_null($session) && $session->has('booking')) {
+            $booking = $session->get('booking');
         }
+
+        $form = $this->createForm(BookingType::class, $booking);
 
         if($request->isMethod('POST') )
         {
             $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()) {
-                $entityMgr->persist($booking);
 
-                foreach($booking->getTickets() as $ticket)
-                {
-                    $ticket->setBooking($booking);
-
-                    $entityMgr->persist($ticket);
-                }
-
-                //Update the number of available places for the visitor day
-                $visitorDay = $booking->getDtVisitor();
-                $visitorDay->decreasePlaceAvailable( count($booking->getTickets()) );
-                $entityMgr->persist($visitorDay);
-
-                $entityMgr->flush();
+                $session->set('booking', $form->getData());
 
                 return $this->redirectToRoute('eoe_ticket_paiement');
             }
@@ -127,20 +117,6 @@ class HomeController extends Controller
         $rates = $rateRepo->jsonFindAll();
 
         return new JsonResponse($rates);
-    }
-
-    public function paiementAction(Request $request)
-    {
-        if($request->isMethod('POST'))
-        {
-            $request->getSession()->getFlashBag()->add('notice', 'Réservation enregistrée');
-
-            return $this->render('EOETicketBundle:Home:paiement.html.twig');
-        }
-
-        $request->getSession()->getFlashBag()->add('error', 'Echec lors de la réservation');
-
-        return $this->render('EOETicketBundle:Home:paiement.html.twig');
     }
 
     private function getAvailablePlace($date)

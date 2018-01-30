@@ -1,0 +1,44 @@
+{% extends "EOETicketBundle:sections:base.html.twig" %}
+
+{% block title %}Billetterie en ligne{% endblock %}
+
+{% block form %}
+<div class="step-confirmation">
+    <div class="row">
+        {% if isSaved %}
+            <div class="col-sm-12 text-center">
+                <h3>Votre paiement a été accepté</h3>
+            </div>
+        {% else %}
+            <div class="col-sm-12 text-center">
+                <h3>Votre paiement échoué</h3>
+            </div>
+        {% endif %}
+    </div>
+    {% if message|length > 0 %}
+    <div class="row">
+        <div class="message col-sm-12 text-center">
+            <p>
+               {{ message }}
+            </p>
+        </div>
+    </div>
+    {% endif %}
+    {% if stripeInfos %}
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <ul>
+               {% for title, info in stripeInfos %}
+               <li><span>{{ title }} :</span> {{ info }}</li>
+               {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <button>Retour à l'accueil de la billetterie</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

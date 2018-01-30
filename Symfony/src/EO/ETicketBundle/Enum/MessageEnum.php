@@ -17,6 +17,9 @@ class MessageEnum
     const AVAILABLE_DATE_NO          = "available-date-no";
     const AVAILABLE_DATE_OUT_OF_DATE = "available-date-out-of-date";
     const UNKOWN_REFERENCE           = "unknown-ref";
+    const AVAILABLE_PLACE_NO         = "available-place-no";
+    const BOOKING_SUCCEEDED            = "booking-succeed";
+    const BOOKING_FAILED             = "booking-failed";
 
     /**
      * List of all references of messages
@@ -28,7 +31,10 @@ class MessageEnum
                              self::AVAILABLE_DATE_YES,
                              self::AVAILABLE_DATE_NO,
                              self::AVAILABLE_DATE_OUT_OF_DATE,
-                             self::UNKOWN_REFERENCE
+                             self::UNKOWN_REFERENCE,
+                             self::AVAILABLE_PLACE_NO,
+                             self::BOOKING_SUCCEEDED,
+                             self::BOOKING_FAILED
                             ];
 
     /**

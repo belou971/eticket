@@ -1,0 +1,73 @@
+{% extends "EOETicketBundle:sections:base.html.twig" %}
+
+{% block title %}Billetterie en ligne - paiement{% endblock %}
+
+{% block form %}
+    <div class="step-payment">
+        <div class="c-card">
+            <form action="{{ path('eoe_ticket_charge') }}" method="POST">
+                <div class="row card-style card-form-header">
+                    <div class="col-sm-12 text-center">
+                        <h3>Votre code de réservation: <span class="invoice-prix">{{ bookingCode }} </span></h3>
+                    </div>
+                    <div class="col-sm-12 text-center">
+                        <h2>Montant: <span class="invoice-prix">{{ invoice }} € </span></h2>
+                    </div>
+                </div>
+                <div class="row card-style card-form">
+                    <div class="col-sm-12">
+                        <div class="row row-card-logo">
+                            <div class="col-sm-2 text-center">
+                                <div class="row row-border">
+                                    <div class="payment-secure">
+                                        <span class="">Paiement garanti par</span>
+                                    </div>
+                                    <div class="logo">
+                                        <i class="fa fa-lock"></i> <span class="stripe-name">stripe</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-10 text-center">
+                                <span class="logo-card"><i class="fa fa-cc-visa"></i></span>
+                                <span class="logo-card"><i class="fa fa-cc-amex"></i></span>
+                                <span class="logo-card"><i class="fa fa-cc-mastercard"></i></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-offset-2 col-sm-8 field-style">
+                                <label for="ticket-card-number" data-tid="elements_examples.form.card_number_label"><i class="fa fa-credit-card"></i> Numéro de carte</label>
+                                <div id="ticket-card-number"></div>
+                                <div class="message text-danger"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-offset-2 col-sm-4 field-style-no-right">
+                                <label for="ticket-card-expiry" data-tid="elements_examples.form.card_expiry_label"><i class="fa fa-calendar-o"></i> Expiration</label>
+                                <div id="ticket-card-expiry"></div>
+                                <div class="message text-danger"></div>
+                            </div>
+                            <div class="form-group col-sm-4 field-style">
+                                <label for="ticket-card-cvc" data-tid="elements_examples.form.card_cvc_label"><i class="fa fa-lock"></i> CVC</label>
+                                <div id="ticket-card-cvc"></div>
+                                <div class="message text-danger"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-space-top">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <button class="btn btn-lg btn-block btn-style " type="submit" data-tid="elements_examples.form.pay_button">Payer</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ asset('bundles/eoeticket/jquery/register_stripe.js' ) }}"></script>
+    <script src="{{ asset('bundles/eoeticket/jquery/example2.js' ) }}"></script>
+{% endblock %}

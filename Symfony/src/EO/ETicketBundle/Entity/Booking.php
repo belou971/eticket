@@ -20,6 +20,7 @@ use EO\ETicketBundle\Validator as BookingAssert;
  */
 class Booking
 {
+    const CODE_SIZE = 6;
     /**
      * @var int
      *
@@ -69,7 +70,7 @@ class Booking
     /**
      * @var \EO\ETicketBundle\Entity\AvailableDate
      *
-     * @ORM\ManyToOne(targetEntity="\EO\ETicketBundle\Entity\AvailableDate", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="\EO\ETicketBundle\Entity\AvailableDate", cascade={"persist", "merge"})
      * @Assert\Valid(payload={"severity"="error"})
      */
     private $dtVisitor;
@@ -82,13 +83,6 @@ class Booking
     private $dtCreation;
 
     /**
-     * @var float
-     *
-     */
-    private $invoice;
-
-
-    /**
      * @var BookingEnum
      *
      * @ORM\Column(type="BookingType")
@@ -97,7 +91,6 @@ class Booking
      *     message="{{ value }} n'est pas un type de réservation reconnu")
      */
     private $bookingType;
-
 
     /**
      * @var \EO\ETicketBundle\Entity\Ticket
@@ -108,12 +101,11 @@ class Booking
     private $tickets;
 
     /**
-     * @var \EO\ETicketBundle\Enum\StatusEnum
+     * @var string
      *
-     * @ORM\Column(type="StatusType", nullable=false, options={"default":"stand by"})
+     * @ORM\Column(name="code", type="string", length=255, unique=true)
      */
-    private $status;
-
+    private $bookingCode;
 
     /**
      * Get id
@@ -270,28 +262,27 @@ class Booking
     }
 
     /**
-     * Set invoice
+     * Compute invoice
      *
-     * @param float $invoice
-     *
-     * @return Booking
-     */
-    public function setInvoice($invoice)
-    {
-        $this->invoice = $invoice;
-
-        return $this;
-    }
-
-    /**
-     * Get invoice
+     * @param float tax rate
      *
      * @return float
      */
-    public function getInvoice()
+    public function computeInvoice($tva)
     {
-        return $this->invoice;
+        $invoiceWOTax = 0.0;
+
+        foreach ($this->tickets as $ticket) {
+            $invoiceWOTax += $ticket->getPriceHT()->getValue();
+        }
+
+        $costTax = $invoiceWOTax * $tva;
+
+        $invoiceTotal = $invoiceWOTax + $costTax;
+
+        return $invoiceTotal;
     }
+
 
     /**
      * Set bookingType
@@ -325,6 +316,7 @@ class Booking
         $this->dtCreation = new \DateTime();
         $this->invoice = 0;
         $this->status = StatusEnum::STANDBY;
+        $this->bookingCode = NULL;
     }
 
     /**
@@ -363,35 +355,49 @@ class Booking
         return $this->tickets;
     }
 
-    /**
-     * Set status
-     *
-     * @param StatusType $status
-     *
-     * @return Booking
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return StatusType
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
     public function updateAvailablePlace($nbBookedPlace)
     {
         if( !is_null($this->getDtVisitor()) )
         {
             $this->getDtVisitor()->decreasePlaceAvailable($nbBookedPlace);
         }
+    }
+
+    public function generateCode($length){
+        $token = "";
+        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+        $codeAlphabet.= "0123456789";
+        $max = strlen($codeAlphabet);
+
+        for ($i=0; $i < $length; $i++) {
+            $token .= $codeAlphabet[random_int(0, $max-1)];
+        }
+
+        return $token;
+    }
+
+    /**
+     * Set bookingCode
+     *
+     * @param string $bookingCode
+     *
+     * @return Booking
+     */
+    public function setBookingCode($bookingCode)
+    {
+        $this->bookingCode = $bookingCode;
+
+        return $this;
+    }
+
+    /**
+     * Get bookingCode
+     *
+     * @return string
+     */
+    public function getBookingCode()
+    {
+        return $this->bookingCode;
     }
 }

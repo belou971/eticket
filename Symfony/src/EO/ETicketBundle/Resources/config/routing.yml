@@ -15,5 +15,17 @@ eoe_ticket_loadrates:
     defaults: { _controller: EOETicketBundle:Home:load }
 
 eoe_ticket_paiement:
-    path:     /paiement
-    defaults: { _controller: EOETicketBundle:Home:paiement }
+    path: /payment
+    defaults: { _controller: EOETicketBundle:Payment:index }
+
+eoe_ticket_charge:
+  path: /charge
+  defaults: { _controller: EOETicketBundle:Payment:charge }
+
+eoe_ticket_succeed:
+  path: /confirmation
+  defaults: { _controller: EOETicketBundle:Payment:succeed }
+
+eoe_ticket_failure:
+  path: /failure
+  defaults: { _controller: EOETicketBundle:Payment:failure }

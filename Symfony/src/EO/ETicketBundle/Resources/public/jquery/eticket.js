@@ -96,7 +96,7 @@ function set_active_class($element) {
 }
 
 function bindInputs($ticket) {
-    var $allBDayInputs = $ticket.find('input[type=checkbox], select');
+    var $allBDayInputs = $ticket.find('select');
 
     $allBDayInputs.on('change', function($event) {
         var $element = $event.target;
@@ -216,6 +216,14 @@ function handlingBtns($ticket) {
         computeInvoice();
     });
 
+    var $reducing_checkbox = $ticket.find('input[type=checkbox]');
+    $reducing_checkbox.bind('change', function() {
+        //if reduce button is checked
+        if(($reducing_checkbox.is(':visible')) && ($reducing_checkbox.prop('checked'))) {
+            var $reducing_rate_info = $rates.find(isReducingRate);
+            setRateHeader($ticket, $reducing_rate_info.type, $reducing_rate_info.value);
+        }
+    });
 }
 
 function copyTo($from, $to) {
@@ -324,31 +332,31 @@ function getTVA(){
 }
 
 function updatePrice($ticket_id) {
-    //var $ticket_id = $element.closest('.ticket-container').attr('id');
     var $ticket = $('#'+$ticket_id);
     var $reducing_checkbox = $ticket.find('input[type=checkbox]');
+    var $reducing_container = $ticket.find('div[id*=container]');
 
-    //if reduce button is checked
-    if($reducing_checkbox.is(':checked')) {
-        var $reducing_rate_info = $rates.find(isReducingRate);
-        setRateHeader($ticket, $reducing_rate_info.type, $reducing_rate_info.value);
-    }
-    else {
-        //compute the visitor's age
-        var $visitorAge = getAge($ticket);
+    //compute the visitor's age
+    var $visitorAge = getAge($ticket);
 
-        if($visitorAge !== null) {
-            //update rate section and the title of the ticket
-            var $rate_info = findRate($visitorAge);
-            if ($rate_info) {
-                setRateHeader($ticket, $rate_info.type, $rate_info.value);
+    if($visitorAge !== null) {
+        //update rate section and the title of the ticket
+        var $rate_info = findRate($visitorAge);
+        if ($rate_info) {
+            setRateHeader($ticket, $rate_info.type, $rate_info.value);
+            if(isNormalRate($rate_info)) {
+                showStep($reducing_container);
+            }
+            else {
+                hideStep($reducing_container);
             }
         }
-        else {
-            setRateHeader($ticket, '', '');
-        }
-
     }
+    else {
+        setRateHeader($ticket, '', '');
+        hideStep($reducing_container);
+    }
+    $reducing_checkbox.prop('checked', false);
 }
 
 function showInvalidStep($step1, $step2)

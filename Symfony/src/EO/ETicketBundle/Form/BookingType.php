@@ -2,6 +2,7 @@
 
 namespace EO\ETicketBundle\Form;
 
+use EO\ETicketBundle\Entity\Booking;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -81,16 +82,28 @@ class BookingType extends AbstractType
 
     public function onPostSubmitDate(FormEvent $event)
     {
+        //$this->updateAvailableDate($event) ;
+
+        $this->createCode($event);
+    }
+
+    private function createCode($event)
+    {
         $bookingData = $event->getData();
-        $visitDate = $bookingData->getDtVisitor();
+        $bookingRepo = $this->entityMgr->getRepository('EOETicketBundle:Booking');
 
-        $dateRepo = $this->entityMgr->getRepository('EOETicketBundle:AvailableDate');
-        $availDateDB = $dateRepo->findOneBy(array('date' => $visitDate->getDate()));
+        $newCode = NULL;
+        $codeFound = NULL;
 
-        if(!is_null($availDateDB))
-        {
-            $bookingData->setDtVisitor($availDateDB);
-            $event->setData($bookingData);
+        while (is_null($newCode) || $newCode == $codeFound) {
+            $newCode = $bookingData->generateCode(Booking::CODE_SIZE);
+            $codeFound = $bookingRepo->findOneBy(array('bookingCode' => $newCode));
         }
+
+        //i(!is_null($availDateDB))
+        //{
+            $bookingData->setBookingCode($newCode);
+            $event->setData($bookingData);
+        //}
     }
 }

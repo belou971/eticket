@@ -41,11 +41,14 @@ class Messages
     private function __construct()
     {
         $this->mtable = array(
-            MessageEnum::BOOKING_DATE       => "Vous souhaitez réserver pour le %s ",
-            MessageEnum::AVAILABLE_DATE_YES => "Il reste %d place(s) disponible(s)",
-            MessageEnum::AVAILABLE_DATE_NO  => "Il n'y a plus de places disponibles",
+            MessageEnum::BOOKING_DATE               => "Vous souhaitez réserver pour le %s ",
+            MessageEnum::AVAILABLE_DATE_YES         => "Il reste %d place(s) disponible(s)",
+            MessageEnum::AVAILABLE_DATE_NO          => "Il n'y a plus de places disponibles",
             MessageEnum::AVAILABLE_DATE_OUT_OF_DATE => "Nous sommes désolés, les réservations sont terminées pour le %s",
-            MessageEnum::UNKOWN_REFERENCE   => "Cette référence est inconnue"
+            MessageEnum::UNKOWN_REFERENCE           => "Cette référence est inconnue",
+            MessageEnum::AVAILABLE_PLACE_NO         => "Le nombre de place disponible , pour la date du %s, est insuffisant pour terminer votre réservation.",
+            MessageEnum::BOOKING_SUCCEEDED          => "Merci pour votre réservation. Sous 48 heures, vous recevrez vos billets à l'adresse mail suivante: %s.",
+            MessageEnum::BOOKING_FAILED             => "Nous sommes désolés, votre réservation n'a pas été prise en compte."
         );
     }
 }

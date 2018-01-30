@@ -26,7 +26,7 @@ class AvailableDate
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="date", unique=true, type="date")
      * @Assert\Date(message = "La date n'est pas valide")
      * @Assert\NotNull(message = "Quelle est la date de visite?")
      */
@@ -149,4 +149,3 @@ class AvailableDate
         return true;
     }
 }
-

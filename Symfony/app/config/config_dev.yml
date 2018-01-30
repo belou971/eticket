@@ -37,7 +37,15 @@ monolog:
         #    type: chromephp
         #    level: info
 
-#swiftmailer:
+swiftmailer:
+    transport: '%mailer_transport%'
+    auth_mode: '%mailer_auth_mode%'
+    host: '%mailer_host%'
+    encryption: '%mailer_encryption%'
+    port: '%mailer_port%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
 #    delivery_addresses: ['me@example.com']
 
 # AsseticBundle configuration
