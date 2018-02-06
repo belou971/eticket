@@ -388,8 +388,13 @@ function updateStepName($nthChild)
 {
     var stepNamesLst = $('ol.step-names');
 
-    stepNamesLst.find('li.active').removeClass();
-    stepNamesLst.find('li:nth-child('+$nthChild+')').addClass('active');
+    var oldStep = stepNamesLst.find('li.active');
+    oldStep.removeClass();
+    oldStep.addClass('hidden-xs');
+
+    var currentStep = stepNamesLst.find('li:nth-child('+$nthChild+')');
+    currentStep.addClass('active');
+    currentStep.removeClass('hidden-xs');
 }
 
 function sumPriceHt()
@@ -416,9 +421,6 @@ function computeInvoice()
     $('#saleTax').text($saleTax.toFixed(2) + ' €');
     $('#invoiceTotal').text($invoiceTotal.toFixed(2) + ' €');
 }
-
-
-$(".home").on("clic", )
 
 
 /*****************************************************************************/
@@ -492,7 +494,11 @@ $(document).ready( function(){
     }
 
     if($step3.length > 0) {
+        updateStepName(3);
+    }
 
+    if($step4.length > 0) {
+        updateStepName(4);
     }
 
 });
