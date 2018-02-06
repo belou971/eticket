@@ -42,18 +42,18 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Purchase Flow Contain -->
-            <div class="purchase-flow purchase-flow-border col-lg-offset-1 col-lg-7 col-md-9 col-sm-8">
+            <div class="purchase-flow purchase-flow-border col-lg-offset-1 col-lg-7 col-md-9 col-sm-12 col-xs-12">
                 <div class="purchase-header">
                     <ol class="step-names list-inline">
                         <li class="active">Réservation</li>
-                        <li>Panier</li>
-                        <li>Paiement</li>
-                        <li>Confirmation</li>
+                        <li class="hidden-xs">Panier</li>
+                        <li class="hidden-xs">Paiement</li>
+                        <li class="hidden-xs">Confirmation</li>
                     </ol>
                 </div>
 
                 <div class="row">
-                    <div class="form-container col-lg-12">
+                    <div class="form-container col-lg-12 col-sm-12 col-xs-12">
                         {%  block form %}{% endblock %}
                     </div>
                 </div>

@@ -24,20 +24,9 @@
         </div>
     </div>
     {% endif %}
-    {% if stripeInfos %}
     <div class="row">
         <div class="col-sm-12 text-center">
-            <ul>
-               {% for title, info in stripeInfos %}
-               <li><span>{{ title }} :</span> {{ info }}</li>
-               {% endfor %}
-            </ul>
-        </div>
-    </div>
-    {% endif %}
-    <div class="row">
-        <div class="col-sm-12 text-center">
-            <button>Retour à l'accueil de la billetterie</button>
+            <button onclick="location.href={{ path('eoe_ticket_homepage') }}">Retour à l'accueil de la billetterie</button>
         </div>
     </div>
 </div>

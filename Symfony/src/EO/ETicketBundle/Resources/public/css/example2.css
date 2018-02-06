@@ -26,10 +26,92 @@
     padding-bottom: 1.5em;
 }
 
+
 .card-style {
     border: 1px solid #c3a678;
     margin-left: 8em;
     margin-right: 8em;
+}
+
+.logo-card {
+    color: snow;
+    background-color: #333300;
+    font-size: 47px;
+    padding: 0.1em;
+    margin: 0.5em 1.2em;
+}
+
+.logo {
+    color: snow;
+    background-color: #333300;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+@media only screen and (max-device-width: 384px) {
+    .card-style {
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+    }
+
+    .logo-card {
+        color: snow;
+        background-color: #333300;
+        font-size: 27px;
+        padding: 0.1em;
+        margin: 0.5em 0.2em;
+    }
+
+    .logo {
+        color: snow;
+        background-color: #333300;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+@media only screen and (max-device-width: 767px) {
+    .card-style {
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+    }
+
+    .logo-card {
+        color: snow;
+        background-color: #333300;
+        font-size: 27px;
+        padding: 0.1em;
+        margin: 0.5em 0.2em;
+    }
+
+    .logo {
+        color: snow;
+        background-color: #333300;
+        font-size: 14px;
+        font-weight: bold;
+    }
+}
+
+@media only screen and (min-device-width: 768px)  {
+    .card-style {
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+    }
+
+    .logo-card {
+        color: snow;
+        background-color: #333300;
+        font-size: 37px;
+        padding: 0.1em;
+        margin: 0.5em 0.8em;
+    }
+
+    .logo {
+        color: snow;
+        background-color: #333300;
+        font-size: 14px;
+        font-weight: bold;
+    }
 }
 
 .row-card-logo {
@@ -47,18 +129,4 @@
     color: #999966;
 }
 
-.logo {
-    color: snow;
-    background-color: #333300;
-    font-size: 2.5em;
-    font-weight: bold;
-}
-
-.logo-card {
-    color: snow;
-    background-color: #333300;
-    font-size: 47px;
-    padding: 0.1em;
-    margin: 0.5em 1.2em;
-}
 

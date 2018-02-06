@@ -39,68 +39,155 @@ footer a:hover {
 /*                                                Main Content style                                                  */
 /**********************************************************************************************************************/
 
-/*    1. Purchase flow style     */
-/*********************************/
-.purchase-flow-border {
-    border: solid 1px #C3A678;
-}
+    /*    1. Purchase flow style     */
+    /*********************************/
+    .purchase-flow-border {
+        border: solid 1px #C3A678;
+    }
 
-.purchase-flow {
-    padding: 1.5em;
-    margin-top: 76px;
-    margin-bottom: 2px;
-}
+    .purchase-flow {
+        padding: 1.5em;
+        margin-top: 76px;
+        margin-bottom: 2px;
+    }
 
-/*        1.1 Purchase Header style     */
-/****************************************/
-
-ol.step-names {
-    counter-reset:li; /* Initiate a counter */
-    margin-left:0; /* Remove the default left margin */
-    padding-left:0; /* Remove the default left padding */
-    font-size: 17px;
-}
-
-ol.step-names > li {
-    position:relative; /* Create a positioning context */
-    margin:0 0 6px 1.5em; /* Give each list item a left margin to make room for the numbers */
-    padding:14px 76px; /* Add some spacing around the content */
-    list-style:none; /* Disable the normal item numbering */
-    border:2px solid #FDED72;
-    background:#999966;
-}
-
-ol.step-names > li.active {
-    color: #ffffff;
-}
-
-ol.step-names > li.active:before {
-    color:#ffffff;
-    background: #98BE10;
-}
+    /*        1.1 Purchase Header style     */
+    /****************************************/
+    ol.step-names {
+        counter-reset: li; /* Initiate a counter */
+        margin-left: 0; /* Remove the default left margin */
+        padding-left: 0; /* Remove the default left padding */
+        font-size: 17px;
+    }
 
 ol.step-names > li:before {
-    content:counter(li); /* Use the counter as content */
-    counter-increment:li; /* Increment the counter by 1 */
+    content: counter(li); /* Use the counter as content */
+    counter-increment: li; /* Increment the counter by 1 */
     /* Position and style the number */
-    position:absolute;
-    top:-2px;
-    left:-2em;
-    -moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-    box-sizing:border-box;
+    position: absolute;
+    top: -2px;
+    left: -2em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     /*width:2em;*/
     /* Some space between the number and the content in browsers that support
        generated content but not positioning it (Camino 2 is one example) */
-    margin-right:4px;
-    padding:14px;
-    border:2px solid #FDED72;
-    color:#999999;
+    margin-right: 4px;
+    padding: 14px;
+    border: 2px solid #FDED72;
+    color: #999999;
     background: #333300;
-    font-weight:bold;
-    font-family:"Helvetica Neue", Arial, sans-serif;
-    text-align:center;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    text-align: center;
 }
+
+@media only screen and (max-device-width: 384px) {
+    ol.step-names > li:before {
+        padding: 8px;
+        border: 2px solid #FDED72;
+    }
+
+    ol.step-names > li {
+        padding: 8px 100px; /* Add some spacing around the content */
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-device-width: 385px) and (max-device-width: 480px) {
+    ol.step-names > li:before {
+        padding: 8px;
+        border: 2px solid #FDED72;
+    }
+
+    ol.step-names > li {
+        padding: 8px 120px; /* Add some spacing around the content */
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 767px) {
+    ol.step-names > li:before {
+        padding: 8px;
+        border: 2px solid #FDED72;
+    }
+
+    ol.step-names > li {
+        padding: 8px 236px; /* Add some spacing around the content */
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-device-width: 768px) {
+
+    ol.step-names > li:before {
+        padding: 10px;
+        border: 2px solid #FDED72;
+    }
+
+    ol.step-names > li {
+        padding: 10px 50px; /* Add some spacing around the content */
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 1224px) {
+
+    ol.step-names > li {
+        padding: 14px 40px; /* Add some spacing around the content */
+        font-size: 14px;
+    }
+
+    ol.step-names > li:before {
+        padding: 14px;
+        border: 2px solid #FDED72;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+
+    ol.step-names > li {
+        padding: 14px 50px; /* Add some spacing around the content */
+        font-size: 14px;
+    }
+
+    ol.step-names > li:before {
+        padding: 14px;
+        border: 2px solid #FDED72;
+    }
+}
+
+@media only screen and (min-width: 1824px) {
+    ol.step-names > li {
+        padding: 14px 76px; /* Add some spacing around the content */
+        font-size: 14px;
+    }
+
+    ol.step-names > li:before {
+        padding: 14px;
+        border: 2px solid #FDED72;
+    }
+}
+
+ol.step-names > li {
+    position: relative; /* Create a positioning context */
+    margin: 0 0 6px 1.5em; /* Give each list item a left margin to make room for the numbers */
+    list-style: none; /* Disable the normal item numbering */
+    border: 2px solid #FDED72;
+    background: #999966;
+}
+
+    ol.step-names > li.active {
+        color: #ffffff;
+    }
+
+    ol.step-names > li.active:before {
+        color: #ffffff;
+        background: #98BE10;
+    }
+
+
 
 /*        1.2 Booking date form style   */
 /*          1.2.1  Date info container  */
@@ -215,6 +302,10 @@ button {
 
 .row-color {
     background-color: #ccdaaa;;
+}
+
+.bottom-delete-btn {
+    margin-bottom: 3px;
 }
 
 /* SLIDE THREE */

@@ -50,7 +50,7 @@ class EOBookingMailer {
         $to   = $booking->getEmail();
         $subject = sprintf(Messages::getInstance()->get(MessageEnum::MAIL_SUBJECT), $booking->getBookingCode());
 
-        $body = $this->twig->render('EOETicketBundle:sections:confirmation.html.twig',
+        $body = $this->twig->render('@EOETicket/sections/mail.html.twig',
         array("subject" => "Confirmation reservation ".$booking->getBookingCode(),
             "bookingCode" => $booking->getBookingCode(),
             "buyerSurname" => $booking->getSurname(),
