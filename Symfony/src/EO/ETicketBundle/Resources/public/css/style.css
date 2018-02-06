@@ -36,7 +36,7 @@ footer a:hover {
 }
 
 /**********************************************************************************************************************/
-/*                                                Main Content style                                                        */
+/*                                                Main Content style                                                  */
 /**********************************************************************************************************************/
 
 /*    1. Purchase flow style     */
@@ -296,7 +296,7 @@ input[type=checkbox] {
     left: 43px;
 }
 
-/*    4. Total invoice container style                  */
+/*    4. Total invoice container style           */
 /*************************************************/
 .invoice-container {
     margin-bottom: 1em;
@@ -307,6 +307,13 @@ input[type=checkbox] {
 .total-size {
     font-weight: bold;
     font-size: 1.2em;
+}
+
+
+/*    5. Email template style           */
+/****************************************/
+.bookingCode {
+    color: #98BE10;
 }
 
 

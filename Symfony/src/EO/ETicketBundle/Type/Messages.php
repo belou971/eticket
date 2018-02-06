@@ -48,7 +48,8 @@ class Messages
             MessageEnum::UNKOWN_REFERENCE           => "Cette référence est inconnue",
             MessageEnum::AVAILABLE_PLACE_NO         => "Le nombre de place disponible , pour la date du %s, est insuffisant pour terminer votre réservation.",
             MessageEnum::BOOKING_SUCCEEDED          => "Merci pour votre réservation. Sous 48 heures, vous recevrez vos billets à l'adresse mail suivante: %s.",
-            MessageEnum::BOOKING_FAILED             => "Nous sommes désolés, votre réservation n'a pas été prise en compte."
+            MessageEnum::BOOKING_FAILED             => "Nous sommes désolés, votre réservation n'a pas été prise en compte.",
+            MessageEnum::MAIL_SUBJECT               => "Confirmation reservation %s"
         );
     }
 }

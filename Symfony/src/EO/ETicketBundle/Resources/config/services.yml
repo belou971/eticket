@@ -27,6 +27,10 @@ services:
       tags:
         - { name: validator.constraint_validator, alias: eo_eticket_notvailableplace }
 
+    eo_eticket.bookingmailer:
+      class: EO\ETicketBundle\BookingMailer\EOBookingMailer
+      arguments: ["@mailer","@templating", "@doctrine.orm.entity_manager"]
+
 #    eoe_ticket.example:
 #        class: EO\ETicketBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]

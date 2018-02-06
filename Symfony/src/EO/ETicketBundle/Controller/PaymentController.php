@@ -159,15 +159,10 @@ class PaymentController extends Controller
             array('isSaved' => false, 'stripeInfos'=> $stripeInfos, 'message' => $message));
     }
 
-    private function mailerTest($booking) {
-        $content = "<p>Cette reservation est pour : <b>".$booking->getName()." ".$booking->getSurname()."</b></p>";
-        $message = new \Swift_Message("Test d'envoi");
-        $message->setTo("eve.odin@gmail.com")
-            ->setFrom(["achat@louv.fr" => "Billetterie Musée du louvre"])
-            ->setSubject("Confirmation reservation ".$booking->getBookingCode())
-            ->setBody($content, "text/html");
-
-        $this->get('mailer')->send($message);
+    private function mailerTest($booking)
+    {
+        $bMailer = $this->get('eo_eticket.bookingmailer');
+        $bMailer->confirm($booking, $this->getInvoice($booking));
     }
 
     private function saveBookingInDB($booking)

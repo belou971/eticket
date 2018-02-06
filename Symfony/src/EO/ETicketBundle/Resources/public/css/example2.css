@@ -1,0 +1,64 @@
+.row-space-top {
+    margin-top: 2.8em;
+}
+
+.field-style {
+    border: 1px solid #c3a678;
+    color: #333300;
+    background-color: snow;
+}
+.field-style-no-right {
+    border: 1px solid #c3a678;
+    border-right: none;
+    color: #333300;
+    background-color: snow;
+}
+
+.card-form-header {
+    border-bottom: none !important;
+    background-color: snow;
+    color: #333300;
+}
+
+.card-form {
+    background-color: #ccdaaa;
+    /*padding-top: 0.2em;*/
+    padding-bottom: 1.5em;
+}
+
+.card-style {
+    border: 1px solid #c3a678;
+    margin-left: 8em;
+    margin-right: 8em;
+}
+
+.row-card-logo {
+    background-color: #999966;
+    border: 3px solid #333300;
+    margin-bottom: 1.8em;
+}
+
+.row-border {
+    border-right: 3px solid #333300;
+}
+
+.payment-secure {
+    background-color: snow;
+    color: #999966;
+}
+
+.logo {
+    color: snow;
+    background-color: #333300;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.logo-card {
+    color: snow;
+    background-color: #333300;
+    font-size: 47px;
+    padding: 0.1em;
+    margin: 0.5em 1.2em;
+}
+

@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function indexAction(Request $request)
     {
         $entityMgr = $this->getDoctrine()->getManager();
-        $booking = new Booking($entityMgr);
+        $booking = new Booking();
 
         $session = $request->getSession();
         if(!is_null($session) && $session->has('booking')) {

@@ -17,7 +17,6 @@ class RateFixture implements  FixtureInterface {
 
     public function load(ObjectManager $manager)
     {
-        //$rateTypes = new RateType();
         $types = RateEnum::getValues();
 
         foreach( $types as $type) {
@@ -30,13 +29,13 @@ class RateFixture implements  FixtureInterface {
             }
 
             if($type === RateEnum::CHILDREN) {
-                $rate->setAgeMax(14);
-                $rate->setValue(5.0);
+                $rate->setAgeMax(11);
+                $rate->setValue(8.0);
             }
 
             if($type === RateEnum::SENIOR) {
                 $rate->setAgeMax(300);
-                $rate->setValue(8.0);
+                $rate->setValue(12.0);
             }
 
             if($type === RateEnum::PREFERRED_RATE) {
@@ -44,8 +43,8 @@ class RateFixture implements  FixtureInterface {
             }
 
             if($type === RateEnum::NORMAL) {
-                $rate->setAgeMax(64);
-                $rate->setValue(15.0);
+                $rate->setAgeMax(59);
+                $rate->setValue(16.0);
             }
 
             if($type === RateEnum::TVA) {

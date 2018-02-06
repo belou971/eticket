@@ -27,3 +27,11 @@ Supprimerait src/EO/ETicketBundle/Resources/public/components/
 Supprimerait .directory
 Supprimerait src/EO/ETicketBundle/Entity/AvailableDate.php~
 Supprimerait src/EO/ETicketBundle/Entity/Rate.php~
+Supprimerait var/cache/
+Supprimerait var/logs/
+Supprimerait var/sessions/
+Supprimerait src/EO/ETicketBundle/Entity/Horaire.php~
+Supprimerait src/EO/ETicketBundle/Entity/Museum.php~
+Supprimerait src/EO/ETicketBundle/Repository/ContactRepository.php
+Supprimerait src/EO/ETicketBundle/Repository/HoraireRepository.php
+Supprimerait src/EO/ETicketBundle/Repository/MuseumRepository.php

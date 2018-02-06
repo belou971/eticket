@@ -219,9 +219,15 @@ function handlingBtns($ticket) {
     var $reducing_checkbox = $ticket.find('input[type=checkbox]');
     $reducing_checkbox.bind('change', function() {
         //if reduce button is checked
-        if(($reducing_checkbox.is(':visible')) && ($reducing_checkbox.prop('checked'))) {
-            var $reducing_rate_info = $rates.find(isReducingRate);
-            setRateHeader($ticket, $reducing_rate_info.type, $reducing_rate_info.value);
+        if($reducing_checkbox.is(':visible')) {
+            if ($reducing_checkbox.prop('checked')) {
+                var $reducing_rate_info = $rates.find(isReducingRate);
+                setRateHeader($ticket, $reducing_rate_info.type, $reducing_rate_info.value);
+            }
+            else {
+                var $ticket_id = $ticket.attr('id');
+                updatePrice($ticket_id);
+            }
         }
     });
 }
@@ -269,6 +275,10 @@ function isReducingRate(item) {
 
 function isNormalRate(item) {
     return (item.type === "normal");
+}
+
+function isSeniorRate(item) {
+    return (item.type === "sénior");
 }
 
 function setRateHeader($ticket, $type, $value ) {
@@ -344,7 +354,7 @@ function updatePrice($ticket_id) {
         var $rate_info = findRate($visitorAge);
         if ($rate_info) {
             setRateHeader($ticket, $rate_info.type, $rate_info.value);
-            if(isNormalRate($rate_info)) {
+            if(isNormalRate($rate_info) || isSeniorRate($rate_info)) {
                 showStep($reducing_container);
             }
             else {

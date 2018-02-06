@@ -71,6 +71,7 @@ class Booking
      * @var \EO\ETicketBundle\Entity\AvailableDate
      *
      * @ORM\ManyToOne(targetEntity="\EO\ETicketBundle\Entity\AvailableDate", cascade={"persist", "merge"})
+     * @ORM\JoinColumn(nullable=false)
      * @Assert\Valid(payload={"severity"="error"})
      */
     private $dtVisitor;
@@ -211,14 +212,14 @@ class Booking
     public function getDtBirth()
     {
         return $this->dtBirth;
-    }
+    }/** @noinspection PhpUnnecessaryFullyQualifiedNameInspection */
 
     /**
      * Set dtVisitor
      *
      * @param \EO\ETicketBundle\Entity\AvailableDate $dtVisitor
      *
-     * @return Ticket
+     * @return Booking
      */
     public function setDtVisitor(\EO\ETicketBundle\Entity\AvailableDate $dtVisitor = null)
     {
@@ -301,7 +302,7 @@ class Booking
     /**
      * Get bookingType
      *
-     * @return BookingType
+     * @return BookingEnum
      */
     public function getBookingType()
     {
