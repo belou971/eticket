@@ -21,7 +21,7 @@
 
 .navbar-default {
     background-color: #663300!important;
-    border-color: #e7e7e7;
+    border-color: #ffffff;
 }
 
 a.nav-link,
@@ -33,6 +33,30 @@ footer a:hover {
 a.nav-link:hover,
 footer a:hover {
     color: #f9bf22!important;
+}
+
+.intro-position {
+    margin-top: 77px;
+    border-bottom: 1px solid #c3a678;
+}
+
+.presentation {
+    background-color: #e7e7e7;
+}
+
+.image-museum {
+    padding: 0;
+    border-right: 2px solid #ffffff;
+}
+
+.museum-title-style {
+    color: #663300;
+    font-weight: bolder;
+    text-shadow: 2px 2px #c0a16b;
+}
+
+.address-style {
+    color: #66512c;
 }
 
 /**********************************************************************************************************************/
@@ -49,6 +73,10 @@ footer a:hover {
         padding: 1.5em;
         margin-top: 76px;
         margin-bottom: 2px;
+    }
+
+    .purchase-header {
+        margin-bottom: 1.7em;
     }
 
     /*        1.1 Purchase Header style     */
@@ -90,7 +118,7 @@ ol.step-names > li:before {
     }
 
     ol.step-names > li {
-        padding: 8px 100px; /* Add some spacing around the content */
+        padding: 8px 116px; /* Add some spacing around the content */
         font-size: 12px;
     }
 }
@@ -120,6 +148,19 @@ ol.step-names > li:before {
 }
 
 @media only screen and (min-device-width: 768px) {
+    .image-museum img {
+        width: 100%;
+    }
+
+    .museum-title {
+        font-size: 14px;
+        margin-top: 8px;
+        margin-bottom: 4px;
+    }
+
+    .address {
+        font-size: 9px;
+    }
 
     ol.step-names > li:before {
         padding: 10px;
@@ -133,9 +174,22 @@ ol.step-names > li:before {
 }
 
 @media only screen and (min-width: 1224px) {
+    .image-museum img {
+        width: 100%;
+    }
+
+    .museum-title {
+        font-size: 26px;
+        margin-top: 22px;
+        margin-bottom: 18px;
+    }
+
+    .address {
+        font-size: 16px;
+    }
 
     ol.step-names > li {
-        padding: 14px 40px; /* Add some spacing around the content */
+        padding: 14px 53px; /* Add some spacing around the content */
         font-size: 14px;
     }
 
@@ -146,9 +200,12 @@ ol.step-names > li:before {
 }
 
 @media only screen and (min-width: 1440px) {
+    .image-museum img {
+        width: 100%;
+    }
 
     ol.step-names > li {
-        padding: 14px 50px; /* Add some spacing around the content */
+        padding: 14px 65px; /* Add some spacing around the content */
         font-size: 14px;
     }
 
@@ -159,8 +216,26 @@ ol.step-names > li:before {
 }
 
 @media only screen and (min-width: 1824px) {
+    .intro-position {
+        margin-top: 77px;
+    }
+
+    .image-museum img {
+        width: 100%;
+    }
+
+    .museum-title {
+        font-size: 30px;
+        margin-top: 30px;
+        margin-bottom: 22px;
+    }
+
+    .address {
+        font-size: 20px;
+    }
+
     ol.step-names > li {
-        padding: 14px 76px; /* Add some spacing around the content */
+        padding: 14px 105px; /* Add some spacing around the content */
         font-size: 14px;
     }
 
@@ -178,15 +253,29 @@ ol.step-names > li {
     background: #999966;
 }
 
-    ol.step-names > li.active {
-        color: #ffffff;
-    }
+ol.step-names > li.active {
+    color: #ffffff;
+}
 
-    ol.step-names > li.active:before {
-        color: #ffffff;
-        background: #98BE10;
-    }
+ol.step-names > li.active:before {
+    color: #ffffff;
+    background: #98BE10;
+}
 
+.my-label-style {
+    padding: 0.5em;
+    margin-top: 1.5em;
+    color: #333300;
+    background-color: #dad6c8;
+    font-size: medium;
+}
+
+
+.coordonnees,
+.coordonnees .form-group {
+    margin-left: 0!important;
+    margin-right: 0!important;
+ }
 
 
 /*        1.2 Booking date form style   */
@@ -248,8 +337,29 @@ button {
     outline: none!important;
 }
 
+.my-btn-success.active,
+.my-btn-success:active {
+    color: #fff;
+    background-color: #98be10;
+    border-color: #98be10;
+}
+
+
+.bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover {
+    background-color: #98BE10!important;
+}
+
+.bootstrap-datetimepicker-widget table td.today:before {
+    border-bottom-color: #98be10!important;
+}
+
 /*    3. Ticket container style                  */
 /*************************************************/
+div[id$='tickets'] .form-group {
+    margin-left: 0!important;
+    margin-right: 0!important;
+}
+
 .ticket-container {
     margin-bottom: 1em;
     background-color: #ffffff;

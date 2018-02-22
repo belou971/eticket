@@ -4,7 +4,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <h1>
             <a class="nav-link" href="{{ path('eoe_ticket_homepage') }}">
-                <img src="{{ asset('bundles/eoeticket/img/logo2.png') }}" alt="museum logo" />
+                <img src="{{ asset('bundles/eoeticket/img/logo2.png') }}" alt="museum logo" >
                 eTicket
             </a>
         </h1>
@@ -14,3 +14,18 @@
     </nav><!-- /.nav -->
 </header>
 
+<div class="container-fluid intro-position">
+    <div class="row presentation">
+        <div class="col-sm-6 col-xs-12 image-museum">
+            <img src="{{ asset('bundles/eoeticket/img/presentation-header1.jpg')}}" alt="louvre museum image">
+        </div>
+        <div class="col-sm-6 hidden-xs info-museum text-center">
+            <h3 class="museum-title museum-title-style">Musée du Louvre</h3>
+            <p class="address address-style">
+                Place du Carroussel <br>
+                75058 Paris CEDEX 01 <br>
+                France
+            </p>
+        </div>
+    </div>
+</div>

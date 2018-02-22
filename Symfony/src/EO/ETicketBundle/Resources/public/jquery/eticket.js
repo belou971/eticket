@@ -30,6 +30,8 @@ function initialize($step1, $step2)
             }
         });
 
+        $continue = $continue && hasDateVisitor();
+
         if($continue === true) {
             showStep($step1BtnDiv);
         }
@@ -45,14 +47,15 @@ function initialize($step1, $step2)
     /* ******************* Step2 Handling ********************* */
     var $step1Btn = $step1BtnDiv.find('button');
     $step1Btn.on('click', function() {
-            var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
-            if($ticketsDiv.children().length === 0) {
-                ticketFormBuilder();
-            }
-            showStep($step2);
-            hideStep($step1);
-            updateStepName(2);
+
+        var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
+        if($ticketsDiv.children().length === 0) {
+            ticketFormBuilder();
         }
+        showStep($step2);
+        hideStep($step1);
+        updateStepName(2);
+    }
     );
 
     var $step2BtnDiv = $step2.find('.step-buttons-container');
@@ -72,24 +75,28 @@ function getNumberPlaceForDate($inputDate)
     $.post("availableDate", $data)
         .done( function(infos) {
                 $('.booking-date-info').text(infos.date);
-                //récuperer la balise correspondant a la classe .available-place-info
+                //récupérer la balise correspondant a la classe .available-place-info
                 $('.available-place-info').text(infos.nbPlace);
             }
         );
 }
-
 
 function displayDateInfo()
 {
     $('.dateinfo').css('display', 'block');
 }
 
+function hideDateInfo()
+{
+    $('.dateinfo').css('display', 'none');
+}
+
 //Change color state of booking type buttons on a click event associated to these buttons
 function set_active_class($element) {
     $element.find('.btn').toggleClass('active');
 
-    if ($element.find('.btn-success').length>0) {
-        $element.find('.btn').toggleClass('btn-success');
+    if ($element.find('.my-btn-success').length>0) {
+        $element.find('.btn').toggleClass('my-btn-success');
     }
 
     $element.find('.btn').toggleClass('btn-default');
@@ -444,6 +451,22 @@ $dpicker.on('dp.change', function(e){
 
     displayDateInfo();
 });
+
+function hasDateVisitor() {
+    var $dateSize = $('input.date-picker').val().length;
+    var $notEmpty = ($dateSize > 0);
+    if(!$notEmpty) {
+        $('.booking-date-info').text('Veuillez choisir une date de réservation');
+        displayDateInfo();
+    }
+    else {
+        if($('.dateinfo').is(':visible')) {
+            hideDateInfo();
+        }
+    }
+
+    return $notEmpty;
+}
 
 
 /*****************************************************************************/
