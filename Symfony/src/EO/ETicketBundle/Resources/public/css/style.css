@@ -73,6 +73,7 @@ footer a:hover {
         padding: 1.5em;
         margin-top: 76px;
         margin-bottom: 2px;
+        background-color: #663300;
     }
 
     .purchase-header {
@@ -345,6 +346,9 @@ button {
 }
 
 
+/*    3. Datepicker sstyle */
+/*************************************************/
+
 .bootstrap-datetimepicker-widget table td.active, .bootstrap-datetimepicker-widget table td.active:hover {
     background-color: #98BE10!important;
 }
@@ -352,6 +356,17 @@ button {
 .bootstrap-datetimepicker-widget table td.today:before {
     border-bottom-color: #98be10!important;
 }
+
+.bootstrap-datetimepicker-widget table
+{
+    color: #98be10!important;
+}
+
+.bootstrap-datetimepicker-widget table thead tr:nth-child(2)
+{
+    background-color: #333300!important;
+}
+
 
 /*    3. Ticket container style                  */
 /*************************************************/
