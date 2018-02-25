@@ -526,7 +526,13 @@ input[type=checkbox] {
 }
 
 
-/*    5. Email template style           */
+/*    5. Confirmation step style           */
+/****************************************/
+.text-valid {
+    color: #e7e7e7;
+}
+
+/*    6. Email template style           */
 /****************************************/
 .bookingCode {
     color: #98BE10;
@@ -538,4 +544,5 @@ input[type=checkbox] {
 /**********************************************************************************************************************/
 footer {
     background-color: #dff0d8;
+    margin-top: 0.3em;
 }
