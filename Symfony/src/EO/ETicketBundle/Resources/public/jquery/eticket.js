@@ -441,7 +441,7 @@ $dpicker.datetimepicker({
     inline: true,
     minDate: new Date(),
     useCurrent: false,
-    daysOfWeekDisabled: [0, 6]
+    daysOfWeekDisabled: [0, 2, 6]
 });
 
 $dpicker.on('dp.change', function(e){
