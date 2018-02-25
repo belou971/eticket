@@ -72,7 +72,8 @@ class HomeController extends Controller
                 else {
                     $date_msg = sprintf(Messages::getInstance()->get(MessageEnum::AVAILABLE_DATE_OUT_OF_DATE), $formatDate);
                 }
-                return new JsonResponse(array('date' => $date_msg, 'nbPlace' => $place_msg));
+                return new JsonResponse(array('date' => $date_msg,
+                                              'nbPlace' => $place_msg));
             }
 
             $formatDate = $availableDate->formatDateToLetter();

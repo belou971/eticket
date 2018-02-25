@@ -46,6 +46,7 @@ class AvailableDate
     public function __construct()
     {
         $this->placeAvailable = 1000;
+        $this->date = null;
     }
 
 
@@ -127,6 +128,10 @@ class AvailableDate
      */
     public function isDate()
     {
+        if(is_null($this->date)) {
+            return false;
+        }
+
         //si date correspond à la celle de maintenant
         //verifier que l'heure actuelle est plus petite que 14h
         $today_str = date_format(new \DateTime(), 'Y-m-d');
@@ -145,6 +150,18 @@ class AvailableDate
         {
             return false;
         }
+
+        return true;
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     * @Assert\IsTrue(message = "Il n'y a plus de places disponibles pour cette date")
+     * @return bool
+     */
+    public function hasPlace() {
+        if($this->placeAvailable <= 0)
+            return false;
 
         return true;
     }

@@ -72,6 +72,9 @@ class PaymentController extends Controller
                         array('message' => MessageEnum::BOOKING_FAILED));
                 }
             }
+            else {
+                return $this->redirectToRoute('eoe_ticket_homepage');
+            }
         }
 
         //TODO: redirect to unknown error route
