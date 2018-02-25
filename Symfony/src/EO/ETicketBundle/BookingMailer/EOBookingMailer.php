@@ -54,7 +54,7 @@ class EOBookingMailer {
         array("subject" => "Confirmation reservation ".$booking->getBookingCode(),
             "bookingCode" => $booking->getBookingCode(),
             "buyerSurname" => $booking->getSurname(),
-            "bookingType" => $booking->getBookingType(),
+            "bookingType" => $booking->getBookingTypeLabel(),
             "dateVisitor" => $booking->getDtVisitor()->formatDateToLetter(),
             "invoice" => $invoice,
             "nbTickets" => count($booking->getTickets()),

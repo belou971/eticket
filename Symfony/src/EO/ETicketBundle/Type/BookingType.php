@@ -24,4 +24,14 @@ class BookingType extends EnumType
 
         return $map_values;
     }
+
+    public static function getLabel($bookingType) {
+        if($bookingType === BookingEnum::FULL) {
+            return 'Journée';
+        }
+
+        if($bookingType === BookingEnum::HALF) {
+            return 'Demi-journée';
+        }
+    }
 }

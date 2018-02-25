@@ -281,7 +281,7 @@ class Booking
 
         $invoiceTotal = $invoiceWOTax + $costTax;
 
-        return $invoiceTotal;
+        return number_format($invoiceTotal, 2,'.', ' ');
     }
 
 
@@ -308,6 +308,12 @@ class Booking
     {
         return $this->bookingType;
     }
+
+    public function getBookingTypeLabel()
+    {
+        return BookingType::getLabel($this->getBookingType());
+    }
+
     /**
      * Constructor
      */
