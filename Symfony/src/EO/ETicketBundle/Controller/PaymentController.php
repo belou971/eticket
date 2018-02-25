@@ -188,22 +188,23 @@ class PaymentController extends Controller
         $dateRepo = $entityMgr->getRepository('EOETicketBundle:AvailableDate');
         $availDateDB = $dateRepo->findOneBy(array('date' => $visitDate->getDate()));
 
-        if(!is_null($availDateDB))
+        //No booking in DB for this date
+        if(is_null($availDateDB))
         {
-            $nbTicket = count($booking->getTickets());
-            if($availDateDB->getPlaceAvailable() - $nbTicket >= 0) {
-                $availDateDB->decreasePlaceAvailable($nbTicket);
-                $booking->setDtVisitor($availDateDB);
-
-                return MessageEnum::AVAILABLE_DATE_YES;
-            }
-            else {
-                return MessageEnum::AVAILABLE_PLACE_NO;
-            }
+            $availDateDB = $booking->getDtVisitor();
         }
 
-        //No booking in DB for this date
-        return MessageEnum::AVAILABLE_DATE_YES;
+        $nbTicket = count($booking->getTickets());
+        if($availDateDB->getPlaceAvailable() - $nbTicket >= 0) {
+            $availDateDB->decreasePlaceAvailable($nbTicket);
+            $booking->setDtVisitor($availDateDB);
+
+            return MessageEnum::AVAILABLE_DATE_YES;
+        }
+        else {
+            return MessageEnum::AVAILABLE_PLACE_NO;
+        }
+
     }
 
     private function getInvoice($booking)
