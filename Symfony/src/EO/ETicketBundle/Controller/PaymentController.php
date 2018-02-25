@@ -64,7 +64,7 @@ class PaymentController extends Controller
 
                 if($chargeData['paid'] === true) {
                     $this->get('session')->set('infos', $chargeData['outcome']);
-                    return $this->redirectToRoute('eoe_ticket_succeed');
+                    return $this->succeed();
                 }
                 else {
                     $this->get('session')->set('infos', $chargeData['error']);
@@ -81,7 +81,7 @@ class PaymentController extends Controller
         return $response;
     }
 
-    public function succeedAction()
+    private function succeed()
     {
         if(is_null($this->get('session')) || !$this->get('session')->has('booking')) {
             return $this->redirectToRoute('eoe_ticket_homepage');

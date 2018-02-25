@@ -22,10 +22,6 @@ eoe_ticket_charge:
   path: /charge
   defaults: { _controller: EOETicketBundle:Payment:charge }
 
-eoe_ticket_succeed:
-  path: /confirmation
-  defaults: { _controller: EOETicketBundle:Payment:succeed }
-
 eoe_ticket_failure:
   path: /failure
   defaults: { _controller: EOETicketBundle:Payment:failure }
