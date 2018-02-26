@@ -48,8 +48,8 @@ function initialize($step1, $step2)
     var $step1Btn = $step1BtnDiv.find('button');
     $step1Btn.on('click', function() {
 
-        var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
-        if($ticketsDiv.children().length === 0) {
+        var $ticketContainers = getTicketsContainers();
+        if($ticketContainers.length === 0) {
             ticketFormBuilder();
         }
         showStep($step2);
@@ -113,22 +113,26 @@ function bindInputs($ticket) {
 }
 
 function getIndex() {
-    var $ticketsDiv = $('div#eo_eticketbundle_booking_tickets');
-
-    if($ticketsDiv.children().length == 0)
+    var $ticketContainers = getTicketsContainers();
+    if($ticketContainers.length === 0)
         return 0;
 
-    var $lastTicket = $ticketsDiv.children().last();
+    var $lastTicket = $ticketContainers.last();
     var $lastTicketId = $lastTicket.attr('id');
     return Number($lastTicketId.substr(33)) + 1;
+}
+
+function getTicketsContainers() {
+    return $('div#eo_eticketbundle_booking_tickets').find('.ticket-container');
 }
 
 //Build a ticket form
 function ticketFormBuilder() {
 
     var $ticketsDiv   = $('div#eo_eticketbundle_booking_tickets');
+    var $ticketContainers = getTicketsContainers();
     var $selectedDate = $('input.date-picker').val();
-    var $ticketinfos  = {nbaddedticket: $ticketsDiv.children().length, date: $selectedDate};
+    var $ticketinfos  = {nbaddedticket: $ticketContainers.length, date: $selectedDate};
     $.post("add", $ticketinfos)
         .done( function(data) {
 
@@ -136,8 +140,10 @@ function ticketFormBuilder() {
                 var $ticketForm = replaceBy(data.ticket,'__name__', $index);
                 $ticketsDiv.append($ticketForm);
 
+                var $allTicketContainers = getTicketsContainers();
+
                 if($index === 0) {
-                    var $firstTicket = $ticketsDiv.children().first();
+                    var $firstTicket = $allTicketContainers.first();
                     autoFillTicketForm($firstTicket);
                     updatePrice($firstTicket.attr('id'));
                 }
@@ -149,7 +155,7 @@ function ticketFormBuilder() {
                 var $disabled = (data.place <= 0);
                 $('.addBtn').attr('disabled', $disabled);
 
-                if($ticketsDiv.children().length > 0) {
+                if($allTicketContainers.length > 0) {
                     var $step2 = $('.step-tickets');
                     var $step2BtnDiv = $step2.find('.step-buttons-container');
                     var $step2NextBtn = $step2BtnDiv.find('.nextBtn');
@@ -161,12 +167,10 @@ function ticketFormBuilder() {
 
 function loadPrices() {
 
-    var $ticketsContainer   = $('div#eo_eticketbundle_booking_tickets');
-    var $nbTickets          = $ticketsContainer.children().length;
-    var $tickets            = $ticketsContainer.children();
+    var $tickets = getTicketsContainers();
 
     $tickets.each(function(){
-        var $ticket = $(this).find('.ticket-container');
+        var $ticket = $(this);
         var $ticket_id = $ticket.attr('id');
         updatePrice($ticket_id);
         handlingBtns($ticket);
@@ -214,7 +218,8 @@ function handlingBtns($ticket) {
     $delBtn.bind('click', function() {
         $(this).unbind('click');
         $(this).parent().closest('.ticket-container').remove();
-        if($('div#eo_eticketbundle_booking_tickets').children().length <= 0) {
+        var $ticketContainers = getTicketsContainers();
+        if($ticketContainers.length <= 0) {
             var $step2 = $('.step-tickets');
             var $step2BtnDiv = $step2.find('.step-buttons-container');
             var $step2NextBtn = $step2BtnDiv.find('.nextBtn');
